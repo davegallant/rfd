@@ -1,0 +1,9 @@
+**.egg-info/
+**.pyc
+**.pyo
+.pypirc
+.pytest_cache/
+build/
+dist/
+venv/
+setup.py
