@@ -98,8 +98,13 @@ def get_posts(post, count=5, tail=False):
     if pages > total_pages:
         pages = total_pages
 
+    if tail:
+        start_page = total_pages - ceil(count / 40)
+    else:
+        start_page = 0
+
     # Go through as many pages as necessary
-    for page in range(pages):
+    for page in range(start_page, pages):
         page = page + 1  # page 0 causes issues
         response = requests.get(
             "https://forums.redflagdeals.com/api/topics/{}/posts?per_page={}&page={}".format(post_id,
@@ -108,6 +113,7 @@ def get_posts(post, count=5, tail=False):
                                                                                              page))
 
         users = users_to_dict(response.json().get('users'))
+ 
         for _post in response.json().get('posts'):
             # Sometimes votes is null
             if _post.get('votes') is not None:

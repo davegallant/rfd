@@ -29,8 +29,9 @@ def cli():
 
 @cli.command(short_help="Displays posts in a specific thread.")
 @click.option('--count', default=5, help='Number of topics. 0 for all topics')
+@click.option('--tail/--head', default=False, help='Number of topics.')
 @click.argument('post_id')
-def posts(count, post_id):
+def posts(count, post_id, tail):
     """Displays posts in a specific thread.
 
     post_id can be a full url or post id only
@@ -47,7 +48,7 @@ def posts(count, post_id):
 
     try:
         click.echo("-" * get_terminal_width())
-        for post in get_posts(post=post_id, count=count):
+        for post in get_posts(post=post_id, count=count, tail=tail):
             click.echo(" -" + get_vote_color(post.get('score')) + Fore.RESET +
                        post.get('body') + Fore.YELLOW + " ({})".format(post.get('user')))
             click.echo(Style.RESET_ALL)
