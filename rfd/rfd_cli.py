@@ -2,7 +2,7 @@ import sys
 import os
 import click
 from colorama import init, Fore, Style
-from rfd.api import get_threads, get_posts
+from api import get_threads, get_posts
 
 init()
 print()
@@ -47,7 +47,7 @@ def posts(count, post_id):
 
     try:
         click.echo("-" * get_terminal_width())
-        for post in get_posts(post_id, count):
+        for post in get_posts(post=post_id, count=count):
             click.echo(" -" + get_vote_color(post.get('score')) + Fore.RESET +
                        post.get('body') + Fore.YELLOW + " ({})".format(post.get('user')))
             click.echo(Style.RESET_ALL)
