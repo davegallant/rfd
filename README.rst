@@ -14,4 +14,4 @@ Usage
     rfd threads 9 --count 10
 
 
-.. image:: https://user-images.githubusercontent.com/4519234/37319589-299ee538-2646-11e8-99fd-3cffc3b76e49.png
+.. image:: https://user-images.githubusercontent.com/4519234/37319853-3a03fb9c-2647-11e8-806e-17156541cf43.png
