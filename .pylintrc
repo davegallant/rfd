@@ -61,7 +61,6 @@ disable=
     protected-access,
     too-few-public-methods,
 
-
 [LOGGING]
 
 # Logging modules to check that the string format arguments are in logging
