@@ -17,6 +17,8 @@ Usage
 .. image:: https://user-images.githubusercontent.com/4519234/37319853-3a03fb9c-2647-11e8-806e-17156541cf43.png
 
 
+## Example of tailing a post:
+
 .. code-block::
 
     ▶ rfd posts https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-6gb-40-no-referrals-2176935/ --tail 5
