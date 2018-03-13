@@ -11,7 +11,7 @@ with io.open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='rfd',
-    version='0.0.4',
+    version='0.0.5',
     packages=['rfd'],
     keywords='cli redflagdeals',
     install_requires=[

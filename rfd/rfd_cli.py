@@ -2,7 +2,7 @@ import sys
 import os
 import click
 from colorama import init, Fore, Style
-from api import get_threads, get_posts
+from rfd.api import get_threads, get_posts
 
 init()
 print()
