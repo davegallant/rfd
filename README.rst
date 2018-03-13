@@ -33,14 +33,14 @@ tailing a post:
 
 .. code-block::
     |
-
-    ▶ rfd posts https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-6gb-40-no-referrals-2176935/ --tail 5
-
-    --------------------------------------------------------------------------
-     - [0] For those worried about credit ratings, according to Boworell, my credit score rose by 44 points since last month.  I did absolutely nothing except open 3 Koodo lines all with medium tabs and I paid off 1 in full the very next day (Shaner)
-
-    --------------------------------------------------------------------------
-     - [0] If we want to keep our PM plan but use the code to set up a spouse on the plan is that still okay?
+    |
+    |▶ rfd posts https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-6gb-40-no-referrals-2176935/ --tail 5
+    |
+    |--------------------------------------------------------------------------
+    | - [0] For those worried about credit ratings, according to Boworell, my credit score rose by 44 points since last month.  I did absolutely nothing except open 3 Koodo lines all with medium tabs and I paid off 1 in full the very next day (Shaner)
+    |
+    |--------------------------------------------------------------------------
+    | - [0] If we want to keep our PM plan but use the code to set up a spouse on the plan is that still okay?
     I've read that the port can only be used once now, but does it matter which phone number is ported in? (kid_icarus)
 
     --------------------------------------------------------------------------
