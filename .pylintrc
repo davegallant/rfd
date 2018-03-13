@@ -60,6 +60,7 @@ disable=
     missing-docstring,
     protected-access,
     too-few-public-methods,
+    relative-import
 
 
 [LOGGING]
