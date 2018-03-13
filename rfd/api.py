@@ -92,6 +92,8 @@ def get_posts(post, count=5, tail=False, per_page=40):
     if count == 0:
         pages = total_pages
     if count > per_page:
+        if count > total_posts:
+            count = total_posts
         pages = ceil(count / per_page)
     else:
         if tail:
@@ -100,7 +102,6 @@ def get_posts(post, count=5, tail=False, per_page=40):
             pages = 1
 
     if tail:
-        last_page_post_count = total_posts % total_pages
         start_page = ceil((total_posts + 1 - count) / per_page)
         start_post = (total_posts + 1 - count) % per_page
         if start_post == 0:
@@ -128,6 +129,9 @@ def get_posts(post, count=5, tail=False, per_page=40):
                 _posts = _posts[:start_post]
 
         for _post in _posts:
+            count -= 1
+            if count < 0:
+                return
             # Sometimes votes is null
             if _post.get('votes') is not None:
                 calculated_score = get_vote_score(_post.get('votes').get(
