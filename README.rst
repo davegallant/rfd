@@ -6,10 +6,12 @@ RFD CLI
 
 
 Installation:
+=============
 
     pip install rfd
 
 Usage
+=====
 
     rfd threads 9 --count 10
 
@@ -17,7 +19,12 @@ Usage
 .. image:: https://user-images.githubusercontent.com/4519234/37319853-3a03fb9c-2647-11e8-806e-17156541cf43.png
 
 
-## Example of tailing a post:
+Examples:
+=========
+
+
+tailing a post:
+---------------
 
 .. code-block::
 
