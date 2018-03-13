@@ -1,7 +1,7 @@
 RFD CLI
 ===================
 
-.. image:: https://travis-ci.org/davegallant/rfd_cli.svg?branch=prototype
+.. image:: https://travis-ci.org/davegallant/rfd_cli.svg?branch=master
     :target: https://travis-ci.org/davegallant/rfd_cli
 
 
