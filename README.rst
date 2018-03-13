@@ -1,6 +1,10 @@
 RFD CLI
 ===================
 
+
+Get Hot Deals on the command line.
+
+
 .. image:: https://travis-ci.org/davegallant/rfd_cli.svg?branch=master
     :target: https://travis-ci.org/davegallant/rfd_cli
 
