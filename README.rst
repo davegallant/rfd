@@ -17,6 +17,7 @@ Usage
 
 .. code-block::
 
+
     rfd threads 9 [--count 5]
 
 
@@ -31,6 +32,7 @@ tailing a post:
 ---------------
 
 .. code-block::
+    |
 
     ▶ rfd posts https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-6gb-40-no-referrals-2176935/ --tail 5
 
