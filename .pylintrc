@@ -58,6 +58,7 @@ disable=
     fixme,
     invalid-name,
     missing-docstring,
+    no-value-for-parameter,
     protected-access,
     too-few-public-methods,
 

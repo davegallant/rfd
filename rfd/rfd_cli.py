@@ -40,8 +40,8 @@ def cli(ctx, version):
         click.echo(ctx.get_help())
 
 
-@cli.command()
-def version():
+@cli.command('version')
+def display_version():
     click.echo(get_version())
 
 
