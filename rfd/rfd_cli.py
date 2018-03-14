@@ -1,11 +1,19 @@
+from __future__ import unicode_literals
+
+
 import sys
 import os
 import click
 from colorama import init, Fore, Style
 from rfd.api import get_threads, get_posts
+from rfd.__version__ import __version__
 
 init()
 print()
+
+
+def get_version():
+    return 'rfd ' + __version__
 
 
 def get_terminal_width():
@@ -21,10 +29,20 @@ def get_vote_color(score):
     return Fore.BLUE + " [" + str(score) + "] "
 
 
-@click.group()
-def cli():
+@click.group(invoke_without_command=True)
+@click.option('--version/--no-version', default=False)
+@click.pass_context
+def cli(ctx, version):
     """Welcome to the RFD CLI. (RedFlagDeals.com)"""
-    pass
+    if version:
+        click.echo(get_version())
+    elif not ctx.invoked_subcommand:
+        click.echo(ctx.get_help())
+
+
+@cli.command('version')
+def display_version():
+    click.echo(get_version())
 
 
 @cli.command(short_help="Displays posts in a specific thread.")
@@ -71,7 +89,7 @@ def posts(post_id, head, tail):
 
 
 @cli.command(short_help="Displays threads in the specified forum.")
-@click.option('--count', default=5, help='Number of topics.')
+@click.option('--count', default=10, help='Number of topics.')
 @click.argument('forum_id')
 def threads(count, forum_id):
     """Displays threads in the specified forum id.
