@@ -6,7 +6,7 @@ import os
 import click
 from colorama import init, Fore, Style
 from rfd.api import get_threads, get_posts
-from __version__ import __version__
+from rfd.__version__ import __version__
 
 init()
 print()
@@ -36,8 +36,8 @@ def cli(ctx, version):
     """Welcome to the RFD CLI. (RedFlagDeals.com)"""
     if version:
         click.echo(get_version())
-    else:
-        ctx.invoke(threads('9'))
+    elif not ctx.invoked_subcommand:
+        click.echo(ctx.get_help())
 
 
 @cli.command()

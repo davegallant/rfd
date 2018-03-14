@@ -1,6 +1,7 @@
 import io  # for python2
 from os import path
 from setuptools import setup
+from version import __version__ as version
 
 
 here = path.abspath(path.dirname(__file__))
@@ -11,7 +12,7 @@ with io.open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='rfd',
-    version='0.0.6',
+    version=version,
     packages=['rfd'],
     keywords='cli redflagdeals',
     install_requires=[
