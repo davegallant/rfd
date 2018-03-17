@@ -8,6 +8,10 @@ Get Hot Deals on the command line.
 .. image:: https://travis-ci.org/davegallant/rfd_cli.svg?branch=master
     :target: https://travis-ci.org/davegallant/rfd_cli
 
+.. image:: https://requires.io/github/davegallant/rfd_cli/requirements.svg?branch=master
+     :target: https://requires.io/github/davegallant/rfd_cli/requirements/?branch=master
+     :alt: Requirements Status
+
 
 Installation:
 =============
