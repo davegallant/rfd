@@ -6,5 +6,4 @@
 .vscode/
 build/
 dist/
-requirements.txt
 venv/
