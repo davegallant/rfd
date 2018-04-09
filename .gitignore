@@ -3,6 +3,7 @@
 **.pyo
 .pypirc
 .pytest_cache/
+.vscode/
 build/
 dist/
 venv/
