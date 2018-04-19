@@ -149,8 +149,7 @@ def get_posts(post, count=5, tail=False, per_page=40):
                 return
             # Sometimes votes is null
             if _post.get('votes') is not None:
-                calculated_score = calculate_topic_score(_post.get('votes').get(
-                    'total_up'), _post.get('votes').get('total_down'))
+                calculated_score = calculate_topic_score(_post)
             else:
                 calculated_score = 0
             yield{
