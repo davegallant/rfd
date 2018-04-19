@@ -26,19 +26,19 @@ def is_int(number):
         return False
 
 
-def calculate_topic_score(topic):
-    """Calculate the topic
+def calculate_score(post):
+    """Calculate either topic or post score
 
     Arguments:
-        topic {dict} -- pass in the topic object
+        post {dict} -- pass in the topic/post object
 
     Returns:
-        int -- score of the topic
+        int -- score
     """
     score = 0
     try:
-        score = int(topic.get('votes').get('total_up')) - \
-            int(topic.get('votes').get('total_down'))
+        score = int(post.get('votes').get('total_up')) - \
+            int(post.get('votes').get('total_down'))
     except AttributeError:
         pass
 
@@ -76,7 +76,7 @@ def get_threads(forum_id, limit):
     for topic in response.json().get('topics'):
         threads.append({
             'title': topic.get('title'),
-            'score': calculate_topic_score(topic),
+            'score': calculate_score(topic),
             'url': build_web_path(topic.get('web_path')),
         })
     return threads[:limit]
@@ -149,7 +149,7 @@ def get_posts(post, count=5, tail=False, per_page=40):
                 return
             # Sometimes votes is null
             if _post.get('votes') is not None:
-                calculated_score = calculate_topic_score(_post)
+                calculated_score = calculate_score(_post)
             else:
                 calculated_score = 0
             yield{
