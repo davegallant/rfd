@@ -27,7 +27,7 @@ def is_int(number):
 
 
 def calculate_score(post):
-    """Calculate either topic or post score
+    """Calculate either topic or post score. If votes cannot be retrieved, the score is 0.
 
     Arguments:
         post {dict} -- pass in the topic/post object
