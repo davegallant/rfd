@@ -26,8 +26,23 @@ def is_int(number):
         return False
 
 
-def get_vote_score(up_vote, down_vote):
-    return up_vote - down_vote
+def calculate_topic_score(topic):
+    """Calculate the topic
+
+    Arguments:
+        topic {dict} -- pass in the topic object
+
+    Returns:
+        int -- score of the topic
+    """
+    score = 0
+    try:
+        score = int(topic.get('votes').get('total_up')) - \
+            int(topic.get('votes').get('total_down'))
+    except AttributeError:
+        pass
+
+    return score
 
 
 def get_safe_per_page(limit):
@@ -61,7 +76,7 @@ def get_threads(forum_id, limit):
     for topic in response.json().get('topics'):
         threads.append({
             'title': topic.get('title'),
-            'score': get_vote_score(topic.get('votes').get('total_up'), topic.get('votes').get('total_down')),
+            'score': calculate_topic_score(topic),
             'url': build_web_path(topic.get('web_path')),
         })
     return threads[:limit]
@@ -134,7 +149,7 @@ def get_posts(post, count=5, tail=False, per_page=40):
                 return
             # Sometimes votes is null
             if _post.get('votes') is not None:
-                calculated_score = get_vote_score(_post.get('votes').get(
+                calculated_score = calculate_topic_score(_post.get('votes').get(
                     'total_up'), _post.get('votes').get('total_down'))
             else:
                 calculated_score = 0
