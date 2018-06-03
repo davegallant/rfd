@@ -2,6 +2,7 @@
 
 from math import ceil
 import requests
+from rfd.constants import API_BASE_URL
 from bs4 import BeautifulSoup
 
 try:
@@ -11,7 +12,7 @@ except ImportError:
 
 
 def build_web_path(slug):
-    return "https://forums.redflagdeals.com{}".format(slug)
+    return "{}{}".format(API_BASE_URL, slug)
 
 
 def extract_post_id(url):
@@ -72,7 +73,9 @@ def is_valid_url(url):
 def get_threads(forum_id, limit):
     threads = []
     response = requests.get(
-        "https://forums.redflagdeals.com/api/topics?forum_id={}&per_page={}".format(forum_id, get_safe_per_page(limit)))
+        "{}/api/topics?forum_id={}&per_page={}".format(API_BASE_URL,
+                                                       forum_id,
+                                                       get_safe_per_page(limit)))
     for topic in response.json().get('topics'):
         threads.append({
             'title': topic.get('title'),
@@ -100,7 +103,8 @@ def get_posts(post, count=5, tail=False, per_page=40):
         raise ValueError()
 
     response = requests.get(
-        "https://forums.redflagdeals.com/api/topics/{}/posts?per_page=40&page=1".format(post_id))
+        "{}/api/topics/{}/posts?per_page=40&page=1".format(API_BASE_URL,
+                                                           post_id))
     total_posts = response.json().get('pager').get('total')
     total_pages = response.json().get('pager').get('total_pages')
 
@@ -127,10 +131,11 @@ def get_posts(post, count=5, tail=False, per_page=40):
     # Go through as many pages as necessary
     for page in range(start_page, pages + 1):
         response = requests.get(
-            "https://forums.redflagdeals.com/api/topics/{}/posts?per_page={}&page={}".format(post_id,
-                                                                                             get_safe_per_page(
-                                                                                                 per_page),
-                                                                                             page))
+            "{}/api/topics/{}/posts?per_page={}&page={}".format(API_BASE_URL,
+                                                                post_id,
+                                                                get_safe_per_page(
+                                                                    per_page),
+                                                                page))
 
         users = users_to_dict(response.json().get('users'))
 
