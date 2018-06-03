@@ -1,5 +1,7 @@
 """RFD API."""
 
+import json
+import logging
 from math import ceil
 import requests
 from bs4 import BeautifulSoup
@@ -71,12 +73,42 @@ def is_valid_url(url):
 
 
 def get_threads(forum_id, limit):
+    """Get threads from rfd api
+
+    Arguments:
+        forum_id {int} -- forum id
+        limit {[type]} -- limit number of threads returned
+
+    Returns:
+        dict -- api response
+    """
+    try:
+        response = requests.get(
+            "{}/api/topics?forum_id={}&per_page={}".format(API_BASE_URL,
+                                                           forum_id,
+                                                           get_safe_per_page(limit)))
+        if response.status_code == 200:
+            return response.json()
+        logging.error("Unable to retrieve threads. %s", response.text)
+    except json.decoder.JSONDecodeError as err:
+        logging.error("Unable to retrieve threads. %s", err)
+    return None
+
+
+def parse_threads(api_response, limit):
+    """parse topics list api response into digestible list.
+
+    Arguments:
+        api_response {dict} -- topics response from rfd api
+        limit {int} -- limit number of threads returned
+
+    Returns:
+        list(dict) -- digestible list of threads
+    """
     threads = []
-    response = requests.get(
-        "{}/api/topics?forum_id={}&per_page={}".format(API_BASE_URL,
-                                                       forum_id,
-                                                       get_safe_per_page(limit)))
-    for topic in response.json().get('topics'):
+    if api_response is None:
+        return threads
+    for topic in api_response.get('topics'):
         threads.append({
             'title': topic.get('title'),
             'score': calculate_score(topic),

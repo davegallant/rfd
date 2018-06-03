@@ -1,15 +1,20 @@
 from __future__ import unicode_literals
 
 
-import sys
+import logging
 import os
+import sys
 import click
 from colorama import init, Fore, Style
-from rfd.api import get_threads, get_posts
+from rfd.api import parse_threads, get_threads, get_posts
 from rfd.__version__ import __version__
 
 init()
 print()
+
+logging.getLogger()
+logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler())
 
 
 def get_version():
@@ -108,7 +113,7 @@ def threads(count, forum_id):
     74 \t shopping discussion
     88 \t cell phones
     """
-    _threads = get_threads(forum_id, count)
+    _threads = parse_threads(get_threads(forum_id, count), count)
     for i, thread in enumerate(_threads, 1):
         click.echo(" " + str(i) + "." +
                    get_vote_color(thread.get('score')) + Fore.RESET + thread.get('title'))
