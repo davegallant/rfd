@@ -1,6 +1,6 @@
 import io  # for python2
 from os import path
-from setuptools import setup
+from setuptools import setup, find_packages
 try:  # for pip >= 10
     from pip._internal.req import parse_requirements
 except ImportError:  # for pip <= 9.0.3
@@ -32,7 +32,7 @@ setup(
     license='Apache License, Version 2.0',
     long_description=long_description,
     name='rfd',
-    packages=['rfd'],
+    packages=find_packages(),
     url='https://github.com/davegallant/rfd_cli',
     version=version,
 )
