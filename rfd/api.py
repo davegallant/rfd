@@ -1,6 +1,10 @@
 """RFD API."""
 
 import json
+try:
+    from json.decoder import JSONDecodeError
+except ImportError:
+    JSONDecodeError = ValueError
 import logging
 from math import ceil
 import requests
@@ -90,7 +94,7 @@ def get_threads(forum_id, limit):
         if response.status_code == 200:
             return response.json()
         logging.error("Unable to retrieve threads. %s", response.text)
-    except json.decoder.JSONDecodeError as err:
+    except JSONDecodeError as err:
         logging.error("Unable to retrieve threads. %s", err)
     return None
 
