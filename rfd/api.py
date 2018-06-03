@@ -2,8 +2,8 @@
 
 from math import ceil
 import requests
-from rfd.constants import API_BASE_URL
 from bs4 import BeautifulSoup
+from rfd.constants import API_BASE_URL
 
 try:
     from urllib.parse import urlparse  # python 3
