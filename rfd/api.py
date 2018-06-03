@@ -1,6 +1,5 @@
 """RFD API."""
 
-import json
 try:
     from json.decoder import JSONDecodeError
 except ImportError:
