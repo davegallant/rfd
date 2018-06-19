@@ -9,8 +9,8 @@ from version import __version__ as version
 
 WORKING_DIR = path.abspath(path.dirname(__file__))
 
-# Get long description from reStructuredTExt
-with io.open(path.join(WORKING_DIR, 'README.rst'), encoding='utf-8') as f:
+# Get long description from README.md
+with io.open(path.join(WORKING_DIR, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 # read requirements.txt and load into list
@@ -31,6 +31,7 @@ setup(
     keywords='cli redflagdeals',
     license='Apache License, Version 2.0',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     name='rfd',
     packages=find_packages(),
     url='https://github.com/davegallant/rfd_cli',
