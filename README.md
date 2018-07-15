@@ -14,13 +14,11 @@ pip install rfd
 
 ## Usage
 
+![rfd_peek](https://user-images.githubusercontent.com/4519234/42729829-b75dccae-87b2-11e8-8509-593effcecd25.gif)
+
 ```bash
 rfd threads <topic-id> [--count 10]
 ```
-
-### Display first 5 threads from hot deals
-
-![screenshot](https://user-images.githubusercontent.com/4519234/37319853-3a03fb9c-2647-11e8-806e-17156541cf43.png)
 
 ### tail a post
 
