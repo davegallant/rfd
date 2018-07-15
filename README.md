@@ -1,6 +1,6 @@
-# RFD CLI
+# RFD
 
-Hot Deals on the command line.
+Hot deals on the command line.
 
 [![Build Status](https://travis-ci.org/davegallant/rfd.svg?branch=master)](https://travis-ci.org/davegallant/rfd)
 
@@ -41,5 +41,5 @@ There isn't native support for zsh but zsh's bash completion compatibility mode 
 ```zsh
 echo 'autoload bashcompinit \
 bashcompinit \
-eval "$(_FOO_BAR_COMPLETE=source foo-bar)"' >> ~/.zshrc
+eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.zshrc
 ```
