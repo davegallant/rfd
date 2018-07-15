@@ -2,7 +2,7 @@
 
 Hot Deals on the command line.
 
-[![Build Status](https://travis-ci.org/davegallant/rfd_cli.svg?branch=master)](https://travis-ci.org/davegallant/rfd_cli)
+[![Build Status](https://travis-ci.org/davegallant/rfd.svg?branch=master)](https://travis-ci.org/davegallant/rfd)
 
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 
