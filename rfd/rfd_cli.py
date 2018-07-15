@@ -94,10 +94,10 @@ def posts(post_id, head, tail):
 
 
 @cli.command(short_help="Displays threads in the specified forum.")
-@click.option('--count', default=10, help='Number of topics.')
-@click.argument('forum_id')
-def threads(count, forum_id):
-    """Displays threads in the specified forum id.
+@click.option('--limit', default=10, help='Number of topics.')
+@click.argument('forum_id', default=9)
+def threads(limit, forum_id):
+    """Displays threads in the specified forum id. Defaults to 9.
 
     Popular forum ids:
 
@@ -113,7 +113,7 @@ def threads(count, forum_id):
     74 \t shopping discussion
     88 \t cell phones
     """
-    _threads = parse_threads(get_threads(forum_id, count), count)
+    _threads = parse_threads(get_threads(forum_id, limit), limit)
     for i, thread in enumerate(_threads, 1):
         click.echo(" " + str(i) + "." +
                    get_vote_color(thread.get('score')) + Fore.RESET + thread.get('title'))
