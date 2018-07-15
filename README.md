@@ -14,10 +14,10 @@ pip install rfd
 
 ## Usage
 
-![rfd_peek](https://user-images.githubusercontent.com/4519234/42729829-b75dccae-87b2-11e8-8509-593effcecd25.gif)
+![rfd_peek](https://user-images.githubusercontent.com/4519234/42729852-d43a7768-87b3-11e8-81f2-36cb81bf4b58.gif)
 
 ```bash
-rfd threads <topic-id> [--count 10]
+rfd threads <topic-id> [--limit 10]
 ```
 
 ### tail a post
