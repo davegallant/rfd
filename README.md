@@ -39,7 +39,7 @@ echo 'eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.profile
 There isn't native support for zsh but zsh's bash completion compatibility mode works:
 
 ```zsh
-echo 'autoload bashcompinit \
-bashcompinit \
+echo 'autoload bashcompinit
+bashcompinit
 eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.zshrc
 ```
