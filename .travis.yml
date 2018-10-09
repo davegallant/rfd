@@ -1,17 +1,22 @@
-dist: xenial
 language: python
-sudo: true
+sudo: false
 python:
   - "2.7"
   - "3.5"
   - "3.6"
   - "3.7"
+# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 before_install:
 - "pip install -U pip"
 - "python setup.py install"
 install:
   - pip install tox-travis
-  - pip install pytest==3.6.0
+  - pip install pytest
   - pip install pylint
 script:
   - tox
