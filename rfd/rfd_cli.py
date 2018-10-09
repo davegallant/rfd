@@ -29,7 +29,7 @@ def get_terminal_width():
 def get_vote_color(score):
     if score > 0:
         return Fore.GREEN + " [+" + str(score) + "] "
-    elif score < 0:
+    if score < 0:
         return Fore.RED + " [" + str(score) + "] "
     return Fore.BLUE + " [" + str(score) + "] "
 
