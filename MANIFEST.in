@@ -1,2 +1,2 @@
 include requirements.txt
-include version.py
+include rfd/__version__.py

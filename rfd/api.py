@@ -21,7 +21,7 @@ def build_web_path(slug):
 
 
 def extract_post_id(url):
-    return url.split('/')[3].split('-')[-1]
+    return url.split("/")[3].split("-")[-1]
 
 
 def is_int(number):
@@ -43,8 +43,9 @@ def calculate_score(post):
     """
     score = 0
     try:
-        score = int(post.get('votes').get('total_up')) - \
-            int(post.get('votes').get('total_down'))
+        score = int(post.get("votes").get("total_up")) - int(
+            post.get("votes").get("total_down")
+        )
     except AttributeError:
         pass
 
@@ -62,7 +63,7 @@ def get_safe_per_page(limit):
 def users_to_dict(users):
     users_dict = {}
     for user in users:
-        users_dict[user.get('user_id')] = user.get('username')
+        users_dict[user.get("user_id")] = user.get("username")
     return users_dict
 
 
@@ -87,9 +88,10 @@ def get_threads(forum_id, limit):
     """
     try:
         response = requests.get(
-            "{}/api/topics?forum_id={}&per_page={}".format(API_BASE_URL,
-                                                           forum_id,
-                                                           get_safe_per_page(limit)))
+            "{}/api/topics?forum_id={}&per_page={}".format(
+                API_BASE_URL, forum_id, get_safe_per_page(limit)
+            )
+        )
         if response.status_code == 200:
             return response.json()
         logging.error("Unable to retrieve threads. %s", response.text)
@@ -111,12 +113,14 @@ def parse_threads(api_response, limit):
     threads = []
     if api_response is None:
         return threads
-    for topic in api_response.get('topics'):
-        threads.append({
-            'title': topic.get('title'),
-            'score': calculate_score(topic),
-            'url': build_web_path(topic.get('web_path')),
-        })
+    for topic in api_response.get("topics"):
+        threads.append(
+            {
+                "title": topic.get("title"),
+                "score": calculate_score(topic),
+                "url": build_web_path(topic.get("web_path")),
+            }
+        )
     return threads[:limit]
 
 
@@ -138,10 +142,10 @@ def get_posts(post, count=5, tail=False, per_page=40):
         raise ValueError()
 
     response = requests.get(
-        "{}/api/topics/{}/posts?per_page=40&page=1".format(API_BASE_URL,
-                                                           post_id))
-    total_posts = response.json().get('pager').get('total')
-    total_pages = response.json().get('pager').get('total_pages')
+        "{}/api/topics/{}/posts?per_page=40&page=1".format(API_BASE_URL, post_id)
+    )
+    total_posts = response.json().get("pager").get("total")
+    total_pages = response.json().get("pager").get("total_pages")
 
     if count == 0:
         pages = total_pages
@@ -166,20 +170,19 @@ def get_posts(post, count=5, tail=False, per_page=40):
     # Go through as many pages as necessary
     for page in range(start_page, pages + 1):
         response = requests.get(
-            "{}/api/topics/{}/posts?per_page={}&page={}".format(API_BASE_URL,
-                                                                post_id,
-                                                                get_safe_per_page(
-                                                                    per_page),
-                                                                page))
+            "{}/api/topics/{}/posts?per_page={}&page={}".format(
+                API_BASE_URL, post_id, get_safe_per_page(per_page), page
+            )
+        )
 
-        users = users_to_dict(response.json().get('users'))
+        users = users_to_dict(response.json().get("users"))
 
-        _posts = response.json().get('posts')
+        _posts = response.json().get("posts")
 
         # Determine which post to start with (for --tail)
         if page == start_page and not start_post == 0:
             if tail:
-                _posts = _posts[start_post - 1:]
+                _posts = _posts[start_post - 1 :]
             else:
                 _posts = _posts[:start_post]
 
@@ -188,12 +191,12 @@ def get_posts(post, count=5, tail=False, per_page=40):
             if count < 0:
                 return
             # Sometimes votes is null
-            if _post.get('votes') is not None:
+            if _post.get("votes") is not None:
                 calculated_score = calculate_score(_post)
             else:
                 calculated_score = 0
-            yield{
-                'body': strip_html(_post.get('body')),
-                'score': calculated_score,
-                'user': users[_post.get('author_id')],
+            yield {
+                "body": strip_html(_post.get("body")),
+                "score": calculated_score,
+                "user": users[_post.get("author_id")],
             }
