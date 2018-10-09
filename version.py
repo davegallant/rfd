@@ -1,1 +1,0 @@
-rfd/__version__.py
