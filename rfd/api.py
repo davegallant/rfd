@@ -54,7 +54,7 @@ def calculate_score(post):
 def get_safe_per_page(limit):
     if limit < 5:
         return 5
-    elif limit > 40:
+    if limit > 40:
         return 40
     return limit
 
