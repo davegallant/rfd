@@ -12,7 +12,6 @@ with io.open(path.join(WORKING_DIR, "README.md"), encoding="utf-8") as f:
 
 setup(
     author="Dave Gallant",
-    author_email="davegallant at gmail",
     description="CLI for RedFlagDeals.com",
     entry_points={"console_scripts": ["rfd = rfd.rfd_cli:cli"]},
     install_requires=[
