@@ -13,7 +13,7 @@ pip install rfd
 
 ## Usage
 
-![rfd_demo_gif](https://user-images.githubusercontent.com/4519234/47625817-d3375500-dafd-11e8-9d86-491d4a4fb225.gif)
+![rfd_demo_gif](https://user-images.githubusercontent.com/4519234/64501455-64836600-d28f-11e9-8381-3fbfda910230.gif)
 
 
 ```bash

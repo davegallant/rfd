@@ -180,7 +180,7 @@ def get_posts(post, count=5, tail=False, per_page=40):
         _posts = response.json().get("posts")
 
         # Determine which post to start with (for --tail)
-        if page == start_page and not start_post == 0:
+        if page == start_page and start_post != 0:
             if tail:
                 _posts = _posts[start_post - 1 :]
             else:
