@@ -1,4 +1,4 @@
 rope
 black==19.3b0
-pylint
-pytest
+rope==0.14.0
+pylint==2.3.1
