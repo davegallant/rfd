@@ -1,4 +1,4 @@
-rope
+rope==0.14.0
 black==19.3b0
 rope==0.14.0
 pylint==2.3.1
