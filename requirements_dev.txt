@@ -1,4 +1,5 @@
-pytest==5.1.2
 black==19.3b0
-rope==0.14.0
 pylint==2.3.1
+pytest==5.1.2
+rope==0.14.0
+rope==0.14.0
