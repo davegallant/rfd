@@ -1,4 +1,4 @@
 rope
 black
 pylint
-pytest
+pytest==5.1.2
