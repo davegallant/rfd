@@ -1,4 +1,4 @@
-rope
+rope==0.14.0
 black
 pylint
 pytest
