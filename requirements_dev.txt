@@ -2,4 +2,3 @@ rope
 black
 pytest==5.1.2
 pylint==2.3.1
-pytest
