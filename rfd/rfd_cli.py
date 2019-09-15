@@ -133,7 +133,7 @@ def threads(limit, forum_id):
             + "."
             + get_vote_color(thread.get("score"))
             + Fore.RESET
-            + thread.get("title")
+            + "[%s] %s" % (thread.get("dealer_name"), thread.get("title"))
         )
         click.echo(Fore.BLUE + " {}".format(thread.get("url")))
         click.echo(Style.RESET_ALL)

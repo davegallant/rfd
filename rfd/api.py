@@ -117,6 +117,7 @@ def parse_threads(api_response, limit):
         threads.append(
             {
                 "title": topic.get("title"),
+                "dealer_name": topic["offer"].get("dealer_name"),
                 "score": calculate_score(topic),
                 "url": build_web_path(topic.get("web_path")),
             }
