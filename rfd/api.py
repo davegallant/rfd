@@ -9,6 +9,7 @@ from math import ceil
 import requests
 from .constants import API_BASE_URL
 from .format import strip_html, is_valid_url
+from .models import Post
 from .scores import calculate_score
 from .utils import is_int
 
@@ -58,7 +59,7 @@ def get_threads(forum_id, limit):
     return None
 
 
-def get_posts(post, count=5, tail=False, per_page=40):
+def get_posts(post, count=5, per_page=40):
     """Retrieve posts from a thread.
 
     Args:
@@ -88,37 +89,17 @@ def get_posts(post, count=5, tail=False, per_page=40):
             count = total_posts
         pages = ceil(count / per_page)
     else:
-        if tail:
-            pages = total_pages
-        else:
-            pages = 1
+        pages = 1
 
-    if tail:
-        start_page = ceil((total_posts + 1 - count) / per_page)
-        start_post = (total_posts + 1 - count) % per_page
-        if start_post == 0:
-            start_post = per_page
-    else:
-        start_page, start_post = 0, 0
-
-    # Go through as many pages as necessary
-    for page in range(start_page, pages + 1):
+    for page in range(0, pages + 1):
         response = requests.get(
             "{}/api/topics/{}/posts?per_page={}&page={}".format(
                 API_BASE_URL, post_id, get_safe_per_page(per_page), page
             )
         )
-
         users = users_to_dict(response.json().get("users"))
 
         posts = response.json().get("posts")
-
-        # Determine which post to start with (for --tail)
-        if page == start_page and start_post != 0:
-            if tail:
-                posts = posts[start_post - 1 :]
-            else:
-                posts = posts[:start_post]
 
         for i in posts:
             count -= 1
@@ -129,8 +110,8 @@ def get_posts(post, count=5, tail=False, per_page=40):
                 calculated_score = calculate_score(i)
             else:
                 calculated_score = 0
-            yield {
-                "body": strip_html(i.get("body")),
-                "score": calculated_score,
-                "user": users[i.get("author_id")],
-            }
+            yield Post(
+                body=strip_html(i.get("body")),
+                score=calculated_score,
+                user=users[i.get("author_id")],
+            )
