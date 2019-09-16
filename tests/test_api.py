@@ -1,5 +1,5 @@
-from rfd.api import build_web_path, extract_post_id, parse_threads
-
+from rfd.api import extract_post_id
+from rfd.parsing import build_web_path, parse_threads
 
 def test_build_web_path():
     assert build_web_path("/test") == "https://forums.redflagdeals.com/test"
@@ -76,4 +76,4 @@ def test_parse_threads(threads_api_response):
         ]
     )
 
-    assert len(parse_threads(None, 10)) == 0
+    assert len(parse_threads(None, 10)) is 0

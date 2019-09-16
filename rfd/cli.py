@@ -6,8 +6,9 @@ import os
 import sys
 import click
 from colorama import init, Fore, Style
-from rfd.api import parse_threads, get_threads, get_posts
-from rfd.__version__ import version as current_version
+from .api import get_threads, get_posts
+from .parsing import parse_threads
+from .__version__ import version as current_version
 
 init()
 print()
@@ -38,7 +39,7 @@ def get_vote_color(score):
 @click.option("--version/--no-version", default=False)
 @click.pass_context
 def cli(ctx, version):
-    """Welcome to the RFD CLI. (RedFlagDeals.com)"""
+    """CLI for https://forums.redflagdeals.com"""
     if version:
         click.echo(get_version())
     elif not ctx.invoked_subcommand:
@@ -51,16 +52,8 @@ def display_version():
 
 
 @cli.command(short_help="Displays posts in a specific thread.")
-@click.option(
-    "--head", default=0, help="Number of topics. Default is 0, for all topics"
-)
-@click.option(
-    "--tail",
-    default=0,
-    help="Number of topics. Default is disabled. This will override head.",
-)
 @click.argument("post_id")
-def posts(post_id, head, tail):
+def posts(post_id):
     """Displays posts in a specific thread.
 
     post_id can be a full url or post id only
@@ -71,30 +64,17 @@ def posts(post_id, head, tail):
     url: https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-5gb-40-no-referrals-2173603
     post_id: 2173603
     """
-    if head < 0:
-        click.echo("Invalid head.")
-        sys.exit(1)
-
-    if tail < 0:
-        click.echo("Invalid tail.")
-        sys.exit(1)
-
-    # Tail overrides head
-    if tail > 0:
-        count = tail
-    else:
-        count = head
 
     try:
         click.echo("-" * get_terminal_width())
-        for post in get_posts(post=post_id, count=count, tail=tail > 0):
+        for post in get_posts(post=post_id):
             click.echo(
                 " -"
-                + get_vote_color(post.get("score"))
+                + get_vote_color(post.score)
                 + Fore.RESET
-                + post.get("body")
+                + post.body
                 + Fore.YELLOW
-                + " ({})".format(post.get("user"))
+                + " ({})".format(post.user)
             )
             click.echo(Style.RESET_ALL)
             click.echo("-" * get_terminal_width())
@@ -102,7 +82,8 @@ def posts(post_id, head, tail):
         click.echo("Invalid post id.")
         sys.exit(1)
     except AttributeError:
-        click.echo("AttributeError: RFD API did not return expected data.")
+        click.echo("The RFD API did not return the expected data.")
+        sys.exit(1)
 
 
 @cli.command(short_help="Displays threads in the specified forum.")
@@ -131,11 +112,11 @@ def threads(limit, forum_id):
             " "
             + str(i)
             + "."
-            + get_vote_color(thread.get("score"))
+            + get_vote_color(thread.score)
             + Fore.RESET
-            + "[%s] %s" % (thread.get("dealer_name"), thread.get("title"))
+            + "[%s] %s" % (thread.dealer_name, thread.title)
         )
-        click.echo(Fore.BLUE + " {}".format(thread.get("url")))
+        click.echo(Fore.BLUE + " {}".format(thread.url))
         click.echo(Style.RESET_ALL)
 
 
