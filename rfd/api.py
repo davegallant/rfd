@@ -59,15 +59,14 @@ def get_threads(forum_id, limit):
     return None
 
 
-def get_posts(post, count=5, per_page=40):
+def get_posts(post):
     """Retrieve posts from a thread.
 
     Args:
-        post (str): either post id or full url
-        count (int, optional): Description
+        post (str): either full url or postid
 
     Yields:
-        list(dict): body, score, and user
+        list(Post): Posts
     """
     if is_valid_url(post):
         post_id = extract_post_id(post)
@@ -79,22 +78,13 @@ def get_posts(post, count=5, per_page=40):
     response = requests.get(
         "{}/api/topics/{}/posts?per_page=40&page=1".format(API_BASE_URL, post_id)
     )
-    total_posts = response.json().get("pager").get("total")
+
     total_pages = response.json().get("pager").get("total_pages")
 
-    if count == 0:
-        pages = total_pages
-    if count > per_page:
-        if count > total_posts:
-            count = total_posts
-        pages = ceil(count / per_page)
-    else:
-        pages = 1
-
-    for page in range(0, pages + 1):
+    for page in range(0, total_pages + 1):
         response = requests.get(
             "{}/api/topics/{}/posts?per_page={}&page={}".format(
-                API_BASE_URL, post_id, get_safe_per_page(per_page), page
+                API_BASE_URL, post_id, 40, page
             )
         )
         users = users_to_dict(response.json().get("users"))
@@ -102,9 +92,6 @@ def get_posts(post, count=5, per_page=40):
         posts = response.json().get("posts")
 
         for i in posts:
-            count -= 1
-            if count < 0:
-                return
             # Sometimes votes is null
             if i.get("votes") is not None:
                 calculated_score = calculate_score(i)
