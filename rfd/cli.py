@@ -6,8 +6,9 @@ import os
 import sys
 import click
 from colorama import init, Fore, Style
-from rfd.api import parse_threads, get_threads, get_posts
-from rfd.__version__ import version as current_version
+from .api import get_threads, get_posts
+from .parsing import parse_threads
+from .__version__ import version as current_version
 
 init()
 print()
@@ -38,7 +39,7 @@ def get_vote_color(score):
 @click.option("--version/--no-version", default=False)
 @click.pass_context
 def cli(ctx, version):
-    """Welcome to the RFD CLI. (RedFlagDeals.com)"""
+    """CLI for https://forums.redflagdeals.com"""
     if version:
         click.echo(get_version())
     elif not ctx.invoked_subcommand:
@@ -131,11 +132,11 @@ def threads(limit, forum_id):
             " "
             + str(i)
             + "."
-            + get_vote_color(thread.get("score"))
+            + get_vote_color(thread.score)
             + Fore.RESET
-            + "[%s] %s" % (thread.get("dealer_name"), thread.get("title"))
+            + "[%s] %s" % (thread.dealer_name, thread.title)
         )
-        click.echo(Fore.BLUE + " {}".format(thread.get("url")))
+        click.echo(Fore.BLUE + " {}".format(thread.url))
         click.echo(Style.RESET_ALL)
 
 

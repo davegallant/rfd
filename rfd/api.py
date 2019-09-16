@@ -7,52 +7,18 @@ except ImportError:
 import logging
 from math import ceil
 import requests
-from bs4 import BeautifulSoup
-from rfd.constants import API_BASE_URL
-
-try:
-    from urllib.parse import urlparse  # python 3
-except ImportError:
-    from urlparse import urlparse  # python 2
-
-
-def build_web_path(slug):
-    return "{}{}".format(API_BASE_URL, slug)
+from .constants import API_BASE_URL
+from .format import strip_html, is_valid_url
+from .scores import calculate_score
+from .utils import is_int
 
 
 def extract_post_id(url):
     return url.split("/")[3].split("-")[-1]
 
 
-def is_int(number):
-    try:
-        int(number)
-        return True
-    except ValueError:
-        return False
-
-
-def calculate_score(post):
-    """Calculate either topic or post score. If votes cannot be retrieved, the score is 0.
-
-    Arguments:
-        post {dict} -- pass in the topic/post object
-
-    Returns:
-        int -- score
-    """
-    score = 0
-    try:
-        score = int(post.get("votes").get("total_up")) - int(
-            post.get("votes").get("total_down")
-        )
-    except AttributeError:
-        pass
-
-    return score
-
-
 def get_safe_per_page(limit):
+    """Ensure that per page limit is between 5-40"""
     if limit < 5:
         return 5
     if limit > 40:
@@ -61,19 +27,11 @@ def get_safe_per_page(limit):
 
 
 def users_to_dict(users):
+    """Create a dictionary of user ids to usernames."""
     users_dict = {}
     for user in users:
         users_dict[user.get("user_id")] = user.get("username")
     return users_dict
-
-
-def strip_html(text):
-    return BeautifulSoup(text, "html.parser").get_text()
-
-
-def is_valid_url(url):
-    result = urlparse(url)
-    return all([result.scheme, result.netloc, result.path])
 
 
 def get_threads(forum_id, limit):
@@ -98,31 +56,6 @@ def get_threads(forum_id, limit):
     except JSONDecodeError as err:
         logging.error("Unable to retrieve threads. %s", err)
     return None
-
-
-def parse_threads(api_response, limit):
-    """parse topics list api response into digestible list.
-
-    Arguments:
-        api_response {dict} -- topics response from rfd api
-        limit {int} -- limit number of threads returned
-
-    Returns:
-        list(dict) -- digestible list of threads
-    """
-    threads = []
-    if api_response is None:
-        return threads
-    for topic in api_response.get("topics"):
-        threads.append(
-            {
-                "title": topic.get("title"),
-                "dealer_name": topic["offer"].get("dealer_name"),
-                "score": calculate_score(topic),
-                "url": build_web_path(topic.get("web_path")),
-            }
-        )
-    return threads[:limit]
 
 
 def get_posts(post, count=5, tail=False, per_page=40):
@@ -178,26 +111,26 @@ def get_posts(post, count=5, tail=False, per_page=40):
 
         users = users_to_dict(response.json().get("users"))
 
-        _posts = response.json().get("posts")
+        posts = response.json().get("posts")
 
         # Determine which post to start with (for --tail)
         if page == start_page and start_post != 0:
             if tail:
-                _posts = _posts[start_post - 1 :]
+                posts = posts[start_post - 1 :]
             else:
-                _posts = _posts[:start_post]
+                posts = posts[:start_post]
 
-        for _post in _posts:
+        for i in posts:
             count -= 1
             if count < 0:
                 return
             # Sometimes votes is null
-            if _post.get("votes") is not None:
-                calculated_score = calculate_score(_post)
+            if i.get("votes") is not None:
+                calculated_score = calculate_score(i)
             else:
                 calculated_score = 0
             yield {
-                "body": strip_html(_post.get("body")),
+                "body": strip_html(i.get("body")),
                 "score": calculated_score,
-                "user": users[_post.get("author_id")],
+                "user": users[i.get("author_id")],
             }
