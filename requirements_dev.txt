@@ -2,4 +2,4 @@ black
 pylint==2.3.1
 pytest==5.1.2
 pytest-sugar
-rope
+rope==0.14.0
