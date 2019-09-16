@@ -1,4 +1,5 @@
 black
 pylint
 pytest==5.1.2
+pytest-sugar
 rope

@@ -5,7 +5,6 @@ try:
 except ImportError:
     JSONDecodeError = ValueError
 import logging
-from math import ceil
 import requests
 from .constants import API_BASE_URL
 from .format import strip_html, is_valid_url

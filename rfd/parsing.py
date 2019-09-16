@@ -19,7 +19,7 @@ def parse_threads(threads, limit):
     """
     parsed_threads = []
     if threads is None:
-        return threads
+        return []
     for count, topic in enumerate(threads.get("topics"), start=1):
         if count > limit:
             break
