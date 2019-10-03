@@ -16,8 +16,14 @@ pip install rfd
 ![rfd_demo_gif](https://user-images.githubusercontent.com/4519234/64501455-64836600-d28f-11e9-8381-3fbfda910230.gif)
 
 
+### threads
 ```bash
-rfd threads <topic-id> [--limit 10]
+rfd threads [--forum-id 9] [--limit 10]
+```
+
+### search
+```bash
+rfd search pizza [--num-pages 100]
 ```
 
 ## Tab Completion

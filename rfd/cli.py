@@ -7,6 +7,7 @@ import sys
 import click
 from colorama import init, Fore, Style
 from .api import get_threads, get_posts
+from .search import search_threads
 from .parsing import parse_threads
 from .__version__ import version as current_version
 
@@ -88,7 +89,7 @@ def posts(post_id):
 
 @cli.command(short_help="Displays threads in the specified forum.")
 @click.option("--limit", default=10, help="Number of topics.")
-@click.argument("forum_id", default=9)
+@click.option("--forum-id", default=9, help="The forum id number")
 def threads(limit, forum_id):
     """Displays threads in the specified forum id. Defaults to 9.
 
@@ -107,10 +108,10 @@ def threads(limit, forum_id):
     88 \t cell phones
     """
     _threads = parse_threads(get_threads(forum_id, limit), limit)
-    for i, thread in enumerate(_threads, 1):
+    for count, thread in enumerate(_threads, 1):
         click.echo(
             " "
-            + str(i)
+            + str(count)
             + "."
             + get_vote_color(thread.score)
             + Fore.RESET
@@ -118,6 +119,47 @@ def threads(limit, forum_id):
         )
         click.echo(Fore.BLUE + " {}".format(thread.url))
         click.echo(Style.RESET_ALL)
+
+
+@cli.command(short_help="Displays threads in the specified forum.")
+@click.option("--num-pages", default=5, help="Number of pages to search.")
+@click.option(
+    "--forum-id", default=9, help="The forum id number. Defaults to 9 (hot deals)."
+)
+@click.argument("keyword")
+def search(num_pages, forum_id, keyword):
+    """Searches for keywords inin the specified forum id. 
+
+    Popular forum ids:
+
+    \b
+    9 \t hot deals
+    14 \t computer and electronics
+    15 \t offtopic
+    17 \t entertainment
+    18 \t food and drink
+    40 \t automotive
+    53 \t home and garden
+    67 \t fashion and apparel
+    74 \t shopping discussion
+    88 \t cell phones
+    """
+
+    count = 0
+    for page in range(1, num_pages):
+        _threads = parse_threads(get_threads(forum_id, 100, page=page), limit=100)
+        for thread in search_threads(threads=_threads, keyword=keyword):
+            count += 1
+            click.echo(
+                " "
+                + str(count)
+                + "."
+                + get_vote_color(thread.score)
+                + Fore.RESET
+                + "[%s] %s" % (thread.dealer_name, thread.title)
+            )
+            click.echo(Fore.BLUE + " {}".format(thread.url))
+            click.echo(Style.RESET_ALL)
 
 
 if __name__ == "__main__":
