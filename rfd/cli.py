@@ -128,7 +128,7 @@ def threads(limit, forum_id):
 )
 @click.argument("keyword")
 def search(num_pages, forum_id, keyword):
-    """Searches for keywords inin the specified forum id. 
+    """Searches for deals based on a keyword in the specified forum id.
 
     Popular forum ids:
 

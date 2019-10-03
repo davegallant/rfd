@@ -1,9 +1,10 @@
-from rfd.parsing import parse_threads
-from rfd.api import get_threads
-
-
-def search_threads(threads, pages=10, keyword=None):
+def search_threads(threads, keyword=None):
     """Match deal title and dealer names with keyword specified."""
+
+    if keyword is None:
+        return
+
+    keyword = str(keyword)
 
     for deal in threads:
         if keyword.lower() in deal.title.lower() or (
