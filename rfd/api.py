@@ -26,15 +26,15 @@ def get_safe_per_page(limit):
     return limit
 
 
-def users_to_dict(users):
-    """Create a dictionary of user ids to usernames."""
-    users_dict = {}
+def create_user_map(users):
+    """Create a map of user ids to usernames."""
+    m = dict()
     for user in users:
-        users_dict[user.get("user_id")] = user.get("username")
-    return users_dict
+        m[user.get("user_id")] = user.get("username")
+    return m
 
 
-def get_threads(forum_id, limit):
+def get_threads(forum_id, limit, page=1):
     """Get threads from rfd api
 
     Arguments:
@@ -46,8 +46,8 @@ def get_threads(forum_id, limit):
     """
     try:
         response = requests.get(
-            "{}/api/topics?forum_id={}&per_page={}".format(
-                API_BASE_URL, forum_id, get_safe_per_page(limit)
+            "{}/api/topics?forum_id={}&per_page={}&page={}".format(
+                API_BASE_URL, forum_id, get_safe_per_page(limit), page
             )
         )
         if response.status_code == 200:
@@ -86,7 +86,7 @@ def get_posts(post):
                 API_BASE_URL, post_id, 40, page
             )
         )
-        users = users_to_dict(response.json().get("users"))
+        users = create_user_map(response.json().get("users"))
 
         posts = response.json().get("posts")
 
