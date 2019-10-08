@@ -160,7 +160,3 @@ def search(num_pages, forum_id, keyword):
             )
             click.echo(Fore.BLUE + " {}".format(thread.url))
             click.echo(Style.RESET_ALL)
-
-
-if __name__ == "__main__":
-    cli()

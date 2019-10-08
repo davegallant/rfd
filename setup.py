@@ -23,7 +23,7 @@ with io.open(path.join(WORKING_DIR, "README.md"), encoding="utf-8") as f:
 setup(
     author="Dave Gallant",
     description="CLI for RedFlagDeals.com",
-    entry_points={"console_scripts": ["rfd = rfd.cli:cli"]},
+    entry_points={"console_scripts": ["rfd = rfd.__main__:cli"]},
     install_requires=REQUIREMENTS,
     keywords="cli redflagdeals",
     license="Apache License, Version 2.0",
