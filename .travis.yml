@@ -18,6 +18,6 @@ install:
   - pip install pytest
   - pip install pylint
   - pip install pre-commit==1.18.3
-  - git diff-tree --no-commit-id --name-only -r $REVISION | xargs pre-commit run --files
+  - pre-commit run --all-files
 script:
   - tox
