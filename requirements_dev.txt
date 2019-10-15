@@ -1,5 +1,5 @@
-black==19.3b0
-pylint==2.4.2
-pytest==5.2.1
-pytest-sugar==0.9.2
+pre-commit==1.18.3
+pylint
+pytest>=4.6.6
 rope==0.14.0
+tox-travis==0.12

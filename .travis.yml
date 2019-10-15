@@ -11,11 +11,10 @@ matrix:
       dist: xenial
       sudo: true
 before_install:
-- "pip install -U pip"
-- "python setup.py install"
+  - pip install -U pip
 install:
-  - pip install tox-travis
-  - pip install pytest
-  - pip install pylint
+  - python setup.py install
+  - pip install -r requirements_dev.txt
+  - git diff --name-only $TRAVIS_COMMIT_RANGE | xargs pre-commit run --files
 script:
   - tox
