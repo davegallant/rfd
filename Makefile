@@ -1,4 +1,6 @@
 
+SRC:=rfd
+
 .PHONY: build
 build:
 	rm -rf dist/
@@ -16,27 +18,18 @@ push_prod:
 precommit: ## Run pre-commit
 	pre-commit run \
 	--all-files \
-	--show-diff-on-failure \
-	|| \
-	( \
-	echo "" && \
-	echo "##################################################################################" && \
-	echo "If this is on CI, please initialize pre-commit locally using \"make precommit\"." && \
-	echo "Otherwise, view the modifications pre-commit has made, then stage and commit them." && \
-	echo "For more information: https://pre-commit.com/#usage" && \
-	echo "##################################################################################" && \
-	echo ""; \
-	exit 1)
-
+	--show-diff-on-failure
 
 .PHONY: lint
 lint:
-	pylint rfd
+	pylint $(SRC)
 
 .PHONY: test
 test:
 	pytest -v
 
-
 .PHONY: pr
 pr: precommit lint test
+
+.PHONY: ci
+ci: lint test
