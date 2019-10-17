@@ -19,18 +19,21 @@ script:
 
 jobs:
   include:
-    - python: 2.7
+    - python: "2.7"
 
-    - python: 3.5
+    - python: "3.5"
 
-    - python: 3.6
+    - python: "3.6"
 
-    - python: 3.7
+    - python: "3.7"
 
     - stage: deploy
-      on:
-        branch: master
-      provider: pypi
-      user: __token__
-      password:
-        secure: qxOUGvwMz+ZfkDeizevNoMGDWSxkyhQLb6xmjjxcv6ZiZo7u3c7IbPD5rKD8fayWZ+7uLplc7BNBce4DDYgtLcxQEq2NpFWZ+hQSXN98luMdR532axoaa4N4UaLW6rhm+lfgiQljv27vnc2Ce6xYcIwLdpmoGBRnEV4+EmDdhLTwV9wJwkfpMtffV0Lsx8R8uAOfm3y71/urmJWszH2xVxAyOWP+hkSvccyiN6v2KiPQ428f/iqHlusz1ChKanKlFo141CsUAZc5sHRDy8QJmb2VpPUU75whnkGJONj1/hOuWlInzeH+mXYsT7YieM2SgkXdShdKMuyJz081Nsvy0jufMY1v1D/WwGLlhsYgrx/Q3W3ivvzSPn0TbE4FHexh0N4JoZ7K/fBNS0lQ9aLaV7nwEJKYcs5UY8hBywOIEpImkM79tdDiuGJyQ+ulwvZHLvfMy/LXi06DzHFFMz0skGNXT/b+8/IjeU47dSxSvfls7sgO8OKvWnecIeXfXQ9nUIP4aCjaE3G9nsdBzRNgaASZkCiReWIgA13Dbb7Sqb7fKRaAI+j7PZw5j7s8kT5zfdTDYGCAnGyFkDR+L4EXM5/0UDTIjpUgLTxOPxkl4REin5V4ojJC87h0bUONhzNG5odGpZ45kZMUpuhJgLtQ42hvOxZ6B6I2Ln8ZeHIN59w=
+      python: "3.7"
+      deploy:
+        on:
+          branch: master
+          repo: davegallant/rfd
+        provider: pypi
+        user: __token__
+        password:
+          secure: qxOUGvwMz+ZfkDeizevNoMGDWSxkyhQLb6xmjjxcv6ZiZo7u3c7IbPD5rKD8fayWZ+7uLplc7BNBce4DDYgtLcxQEq2NpFWZ+hQSXN98luMdR532axoaa4N4UaLW6rhm+lfgiQljv27vnc2Ce6xYcIwLdpmoGBRnEV4+EmDdhLTwV9wJwkfpMtffV0Lsx8R8uAOfm3y71/urmJWszH2xVxAyOWP+hkSvccyiN6v2KiPQ428f/iqHlusz1ChKanKlFo141CsUAZc5sHRDy8QJmb2VpPUU75whnkGJONj1/hOuWlInzeH+mXYsT7YieM2SgkXdShdKMuyJz081Nsvy0jufMY1v1D/WwGLlhsYgrx/Q3W3ivvzSPn0TbE4FHexh0N4JoZ7K/fBNS0lQ9aLaV7nwEJKYcs5UY8hBywOIEpImkM79tdDiuGJyQ+ulwvZHLvfMy/LXi06DzHFFMz0skGNXT/b+8/IjeU47dSxSvfls7sgO8OKvWnecIeXfXQ9nUIP4aCjaE3G9nsdBzRNgaASZkCiReWIgA13Dbb7Sqb7fKRaAI+j7PZw5j7s8kT5zfdTDYGCAnGyFkDR+L4EXM5/0UDTIjpUgLTxOPxkl4REin5V4ojJC87h0bUONhzNG5odGpZ45kZMUpuhJgLtQ42hvOxZ6B6I2Ln8ZeHIN59w=
