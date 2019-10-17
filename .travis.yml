@@ -2,11 +2,10 @@ language: python
 dist: xenial
 sudo: false
 cache: false
-python: "3.7"
-
 stages:
   - name: deploy
-    if: branch = master
+    # require the branch name to be master (note for PRs this is the base branch name)
+    if: branch = master AND NOT type IN (pull_request)
 
 before_install:
   - pip install -U pip
