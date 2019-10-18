@@ -4,7 +4,7 @@ sudo: false
 cache: false
 stages:
   - name: deploy
-    if: branch = master AND tag IS present
+    if: repo = davegallant/rfd AND tag IS present
 
 before_install:
   - pip install -U pip
