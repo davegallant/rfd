@@ -30,7 +30,6 @@ jobs:
       python: "3.7"
       deploy:
         on:
-          all_branches: true
           repo: davegallant/rfd
           tags: true
         provider: pypi
