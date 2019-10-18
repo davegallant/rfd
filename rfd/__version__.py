@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-version = "0.3.2"
+from os.path import dirname, abspath, join
+
+
+def load_version():
+    with open(join(dirname(abspath(__file__)), "VERSION")) as handle:
+        return handle.read()
+
+
+version = load_version()

@@ -32,6 +32,7 @@ jobs:
         on:
           branch: master
           repo: davegallant/rfd
+          tags: true
         provider: pypi
         user: __token__
         password:

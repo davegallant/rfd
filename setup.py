@@ -24,6 +24,7 @@ setup(
     author="Dave Gallant",
     description="CLI for RedFlagDeals.com",
     entry_points={"console_scripts": ["rfd = rfd.__main__:cli"]},
+    include_package_data=True,
     install_requires=REQUIREMENTS,
     keywords="cli redflagdeals",
     license="Apache License, Version 2.0",
