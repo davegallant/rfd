@@ -4,4 +4,3 @@ include rfd/VERSION
 
 recursive-exclude * __pycache__
 recursive-include tests *
-
