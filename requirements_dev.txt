@@ -1,4 +1,4 @@
-pre-commit==1.19.0
+pre-commit==1.20.0
 pylint
 pytest>=4.6.6
 rope==0.14.0
