@@ -8,18 +8,18 @@ Hot deals on the command line.
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/context:python)
 
-## Installation
+
+![image](https://user-images.githubusercontent.com/4519234/71054408-e18c6a00-211f-11ea-89bc-3f990a4909de.png)
+
+## Install
 
 ```bash
 pip install rfd
 ```
 
-## Usage
+## Use
 
-![rfd_demo_gif](https://user-images.githubusercontent.com/4519234/64501455-64836600-d28f-11e9-8381-3fbfda910230.gif)
-
-
-### threads
+### view threads
 ```bash
 rfd threads [--forum-id 9] [--limit 10]
 ```
@@ -29,7 +29,7 @@ rfd threads [--forum-id 9] [--limit 10]
 rfd search pizza [--num-pages 100]
 ```
 
-## Tab Completion
+## Support Tab Completion
 
 ### bash
 

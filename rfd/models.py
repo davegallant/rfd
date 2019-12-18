@@ -1,10 +1,11 @@
 # pylint: disable=old-style-class
 class Thread:
-    def __init__(self, title, dealer_name, score, url):
+    def __init__(self, title, dealer_name, score, url, total_views):
         self.dealer_name = dealer_name
         self.score = score
         self.title = title
         self.url = url
+        self.total_views = total_views
 
     def __repr__(self):
         return "Thread(%s)" % self.title
