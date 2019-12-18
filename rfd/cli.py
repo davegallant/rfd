@@ -116,6 +116,9 @@ def threads(limit, forum_id):
             + get_vote_color(thread.score)
             + Fore.RESET
             + "[%s] %s" % (thread.dealer_name, thread.title)
+            + Fore.LIGHTYELLOW_EX
+            + " (%d views)" % thread.total_views
+            + Fore.RESET
         )
         click.echo(Fore.BLUE + " {}".format(thread.url))
         click.echo(Style.RESET_ALL)

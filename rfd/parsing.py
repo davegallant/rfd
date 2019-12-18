@@ -29,6 +29,7 @@ def parse_threads(threads, limit):
                 dealer_name=topic["offer"].get("dealer_name"),
                 score=calculate_score(topic),
                 url=build_web_path(topic.get("web_path")),
+                total_views=topic.get("total_views"),
             )
         )
     return parsed_threads
