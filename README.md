@@ -9,7 +9,7 @@ Hot deals on the command line.
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/context:python)
 
 
-![image](https://user-images.githubusercontent.com/4519234/71054408-e18c6a00-211f-11ea-89bc-3f990a4909de.png)
+![screenshot](https://user-images.githubusercontent.com/4519234/76671943-c9d24f80-656f-11ea-872e-85897add37db.png)
 
 ## Install
 
