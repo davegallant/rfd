@@ -36,34 +36,40 @@ def get_vote_color(score):
     return Fore.BLUE + " [" + str(score) + "] "
 
 
+def print_version(ctx, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo(get_version())
+    ctx.exit()
+
+
 @click.group(invoke_without_command=True)
-@click.option("--version/--no-version", default=False)
+@click.option(
+    "-v",
+    "--version",
+    is_flag=True,
+    callback=print_version,
+    expose_value=False,
+    is_eager=True,
+)
 @click.pass_context
-def cli(ctx, version):
+def cli(ctx):
     """CLI for https://forums.redflagdeals.com"""
-    if version:
-        click.echo(get_version())
-    elif not ctx.invoked_subcommand:
+    if not ctx.invoked_subcommand:
         click.echo(ctx.get_help())
 
 
-@cli.command("version")
-def display_version():
-    click.echo(get_version())
-
-
-@cli.command(short_help="Displays posts in a specific thread.")
+@cli.command(short_help="Display all posts in a thread.")
 @click.argument("post_id")
 def posts(post_id):
-    """Displays posts in a specific thread.
+    """Iterate all pages and display all posts in a thread.
 
     post_id can be a full url or post id only
 
     Example:
 
     \b
-    url: https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-5gb-40-no-referrals-2173603
-    post_id: 2173603
+    rfd posts https://forums.redflagdeals.com/koodo-targeted-public-mobile-12-120-koodo-5gb-40-no-referrals-2173603
     """
 
     try:
@@ -87,11 +93,11 @@ def posts(post_id):
         sys.exit(1)
 
 
-@cli.command(short_help="Displays threads in the specified forum.")
+@cli.command(short_help="Displays threads in the forum. Defaults to hot deals.")
 @click.option("--limit", default=10, help="Number of topics.")
 @click.option("--forum-id", default=9, help="The forum id number")
 def threads(limit, forum_id):
-    """Displays threads in the specified forum id. Defaults to 9.
+    """Display threads in the specified forum id. Defaults to 9 (hot deals).
 
     Popular forum ids:
 
@@ -124,14 +130,14 @@ def threads(limit, forum_id):
         click.echo(Style.RESET_ALL)
 
 
-@cli.command(short_help="Displays threads in the specified forum.")
+@cli.command(short_help="Search deals based on a regular expression.")
 @click.option("--num-pages", default=5, help="Number of pages to search.")
 @click.option(
     "--forum-id", default=9, help="The forum id number. Defaults to 9 (hot deals)."
 )
-@click.argument("keyword")
-def search(num_pages, forum_id, keyword):
-    """Searches for deals based on a keyword in the specified forum id.
+@click.argument("regex")
+def search(num_pages, forum_id, regex):
+    """Search deals based on regex.
 
     Popular forum ids:
 
@@ -151,7 +157,7 @@ def search(num_pages, forum_id, keyword):
     count = 0
     for page in range(1, num_pages):
         _threads = parse_threads(get_threads(forum_id, 100, page=page), limit=100)
-        for thread in search_threads(threads=_threads, keyword=keyword):
+        for thread in search_threads(threads=_threads, regex=regex):
             count += 1
             click.echo(
                 " "
