@@ -1,13 +1,14 @@
-def search_threads(threads, keyword=None):
-    """Match deal title and dealer names with keyword specified."""
+import re
 
-    if keyword is None:
-        return
 
-    keyword = str(keyword)
+def search_threads(threads, regex):
+    """Match deal title and dealer names with regex specified."""
+
+    regexp = re.compile(str(regex).lower())
 
     for deal in threads:
-        if keyword.lower() in deal.title.lower() or (
-            deal.dealer_name and keyword.lower() in deal.dealer_name.lower()
+
+        if regexp.search(deal.title.lower()) or (
+            deal.dealer_name and regexp.search(deal.dealer_name.lower())
         ):
             yield deal
