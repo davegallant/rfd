@@ -36,7 +36,7 @@ def get_vote_color(score):
     return Fore.BLUE + " [" + str(score) + "] "
 
 
-def print_version(ctx, param, value):
+def print_version(ctx, value):
     if not value or ctx.resilient_parsing:
         return
     click.echo(get_version())
