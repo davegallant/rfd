@@ -7,6 +7,13 @@ def build_web_path(slug):
     return "{}{}".format(API_BASE_URL, slug)
 
 
+def get_dealer(topic):
+    dealer = None
+    if topic.get("offer"):
+        dealer = topic.get("offer").get("dealer_name")
+    return dealer
+
+
 def parse_threads(threads, limit):
     """parse topics list api response into digestible list.
 
@@ -26,7 +33,7 @@ def parse_threads(threads, limit):
         parsed_threads.append(
             Thread(
                 title=topic.get("title"),
-                dealer_name=topic["offer"].get("dealer_name"),
+                dealer_name=get_dealer(topic),
                 score=calculate_score(topic),
                 url=build_web_path(topic.get("web_path")),
                 total_views=topic.get("total_views"),

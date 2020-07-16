@@ -43,6 +43,27 @@ def print_version(ctx, value):
     ctx.exit()
 
 
+def display_thread(click, thread, count):  # pylint: disable=redefined-outer-name
+    dealer = thread.dealer_name
+    if dealer and dealer is not None:
+        dealer = "[" + dealer + "] "
+    else:
+        dealer = ""
+    click.echo(
+        " "
+        + str(count)
+        + "."
+        + get_vote_color(thread.score)
+        + Fore.RESET
+        + "%s%s" % (dealer, thread.title)
+        + Fore.LIGHTYELLOW_EX
+        + " (%d views)" % thread.total_views
+        + Fore.RESET
+    )
+    click.echo(Fore.BLUE + " {}".format(thread.url))
+    click.echo(Style.RESET_ALL)
+
+
 @click.group(invoke_without_command=True)
 @click.option(
     "-v",
@@ -115,19 +136,7 @@ def threads(limit, forum_id):
     """
     _threads = parse_threads(get_threads(forum_id, limit), limit)
     for count, thread in enumerate(_threads, 1):
-        click.echo(
-            " "
-            + str(count)
-            + "."
-            + get_vote_color(thread.score)
-            + Fore.RESET
-            + "[%s] %s" % (thread.dealer_name, thread.title)
-            + Fore.LIGHTYELLOW_EX
-            + " (%d views)" % thread.total_views
-            + Fore.RESET
-        )
-        click.echo(Fore.BLUE + " {}".format(thread.url))
-        click.echo(Style.RESET_ALL)
+        display_thread(click, thread, count)
 
 
 @cli.command(short_help="Search deals based on a regular expression.")
@@ -159,13 +168,4 @@ def search(num_pages, forum_id, regex):
         _threads = parse_threads(get_threads(forum_id, 100, page=page), limit=100)
         for thread in search_threads(threads=_threads, regex=regex):
             count += 1
-            click.echo(
-                " "
-                + str(count)
-                + "."
-                + get_vote_color(thread.score)
-                + Fore.RESET
-                + "[%s] %s" % (thread.dealer_name, thread.title)
-            )
-            click.echo(Fore.BLUE + " {}".format(thread.url))
-            click.echo(Style.RESET_ALL)
+            display_thread(click, thread, count)
