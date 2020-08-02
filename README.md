@@ -61,7 +61,7 @@ $ rfd search 'pizza'
 Regular expressions can be used for search.
 
 ```console
-$ rfd search '(coffee|starbucks)'
+$ rfd search '(coffee|starbucks)' --num-pages 100
 ```
 
 ## Shell Completion
