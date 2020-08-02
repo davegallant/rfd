@@ -7,8 +7,7 @@ import sys
 import click
 from colorama import init, Fore, Style
 from .api import get_threads, get_posts
-from .search import search_threads
-from .parsing import parse_threads
+from .threads import parse_threads, search_threads, sort_threads
 from .__version__ import version as current_version
 
 init()
@@ -20,7 +19,7 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 
 def get_version():
-    return "rfd " + current_version
+    return "rfd v" + current_version
 
 
 def get_terminal_width():
@@ -39,7 +38,7 @@ def get_vote_color(score):
 def print_version(ctx, value):
     if not value or ctx.resilient_parsing:
         return
-    click.echo(get_version())
+    click.echo(get_version(), nl=False)
     ctx.exit()
 
 
@@ -115,9 +114,10 @@ def posts(post_id):
 
 
 @cli.command(short_help="Displays threads in the forum. Defaults to hot deals.")
-@click.option("--limit", default=10, help="Number of topics.")
 @click.option("--forum-id", default=9, help="The forum id number")
-def threads(limit, forum_id):
+@click.option("--limit", default=10, help="Number of threads.")
+@click.option("--sort-by", default=None, help="Sort threads by")
+def threads(limit, forum_id, sort_by):
     """Display threads in the specified forum id. Defaults to 9 (hot deals).
 
     Popular forum ids:
@@ -134,7 +134,9 @@ def threads(limit, forum_id):
     74 \t shopping discussion
     88 \t cell phones
     """
-    _threads = parse_threads(get_threads(forum_id, limit), limit)
+    _threads = sort_threads(
+        parse_threads(get_threads(forum_id, limit), limit), sort_by=sort_by
+    )
     for count, thread in enumerate(_threads, 1):
         display_thread(click, thread, count)
 
