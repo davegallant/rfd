@@ -1,5 +1,5 @@
 from rfd.api import extract_post_id
-from rfd.parsing import build_web_path, parse_threads
+from rfd.threads import build_web_path, parse_threads
 
 
 def test_build_web_path():

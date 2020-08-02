@@ -6,11 +6,10 @@ except ImportError:
     JSONDecodeError = ValueError
 import logging
 import requests
-from .constants import API_BASE_URL
-from .format import strip_html, is_valid_url
-from .models import Post
+from . import API_BASE_URL
+from .posts import Post
 from .scores import calculate_score
-from .utils import is_int
+from .utils import is_int, strip_html, is_valid_url
 
 
 def extract_post_id(url):

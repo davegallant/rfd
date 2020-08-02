@@ -5,7 +5,6 @@ Hot deals on the command line.
 [![Build Status](https://travis-ci.org/davegallant/rfd.svg?branch=master)](https://travis-ci.org/davegallant/rfd)
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/context:python)
 
 
@@ -37,29 +36,46 @@ Commands:
 
 ## Examples
 
-### view hot deals
-```shell
-rfd threads
+### View Hot Deals
+```console
+$ rfd threads
 ```
 
-### search for pizza
-```shell
-rfd search 'pizza'
+### View and Sort Hot Deals
+
+```console
+$ rfd threads --sort-by score
 ```
 
-## Tab Completion
+```console
+$ rfd threads --sort-by total_views --limit 40
+```
 
-To enable:
+### Simple Search
+```console
+$ rfd search 'pizza'
+```
+
+### RegEx Search
+
+Regular expressions can be used for search.
+
+```console
+$ rfd search '(coffee|starbucks)'
+```
+
+## Shell Completion
+
+Completion can be enabled if using `bash` or `zsh`.
 
 ### bash
 
-```bash
-echo 'eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.profile
+```console
+$ echo 'eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.profile
 ```
 
 ### zsh
 
-
-```zsh
-echo 'eval "$(_RFD_COMPLETE=source_zsh rfd)"' >> ~/.zshrc
+```console
+$ echo 'eval "$(_RFD_COMPLETE=source_zsh rfd)"' >> ~/.zshrc
 ```
