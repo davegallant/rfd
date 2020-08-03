@@ -48,7 +48,7 @@ $ rfd threads --sort-by score
 ```
 
 ```console
-$ rfd threads --sort-by total_views --limit 40
+$ rfd threads --sort-by views --limit 40
 ```
 
 ### Simple Search

@@ -4,12 +4,12 @@ from .scores import calculate_score
 
 # pylint: disable=old-style-class
 class Thread:
-    def __init__(self, title, dealer_name, score, url, total_views):
+    def __init__(self, title, dealer_name, score, url, views):
         self.dealer_name = dealer_name
         self.score = score
         self.title = title
         self.url = url
-        self.total_views = total_views
+        self.views = views
 
     def __repr__(self):
         return "Thread(%s)" % self.title
@@ -48,7 +48,7 @@ def parse_threads(threads, limit):
                 dealer_name=get_dealer(topic),
                 score=calculate_score(topic),
                 url=build_web_path(topic.get("web_path")),
-                total_views=topic.get("total_views"),
+                views=topic.get("total_views"),
             )
         )
     return parsed_threads
@@ -58,7 +58,7 @@ def sort_threads(threads, sort_by):
     """Sort threads by an attribute"""
     if sort_by is None:
         return threads
-    assert sort_by in ["total_views", "score", "title"]
+    assert sort_by in ["views", "score", "title"]
     threads = sorted(threads, key=lambda x: getattr(x, sort_by), reverse=True)
     return threads
 
