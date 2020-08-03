@@ -5,7 +5,7 @@ Hot deals on the command line.
 [![Build Status](https://travis-ci.org/davegallant/rfd.svg?branch=master)](https://travis-ci.org/davegallant/rfd)
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/context:python)
+[![Downloads](https://pepy.tech/badge/rfd)](https://pepy.tech/project/rfd)
 
 ![screenshot](https://user-images.githubusercontent.com/4519234/85969861-e10a4100-b996-11ea-9a31-6203322c60ee.png)
 
