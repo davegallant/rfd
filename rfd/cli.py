@@ -56,7 +56,7 @@ def display_thread(click, thread, count):  # pylint: disable=redefined-outer-nam
         + Fore.RESET
         + "%s%s" % (dealer, thread.title)
         + Fore.LIGHTYELLOW_EX
-        + " (%d views)" % thread.total_views
+        + " (%d views)" % thread.views
         + Fore.RESET
     )
     click.echo(Fore.BLUE + " {}".format(thread.url))
