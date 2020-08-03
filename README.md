@@ -7,9 +7,7 @@ Hot deals on the command line.
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/davegallant/rfd.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davegallant/rfd/context:python)
 
-
 ![screenshot](https://user-images.githubusercontent.com/4519234/85969861-e10a4100-b996-11ea-9a31-6203322c60ee.png)
-
 
 ## Install
 
@@ -37,6 +35,7 @@ Commands:
 ## Examples
 
 ### View Hot Deals
+
 ```console
 $ rfd threads
 ```
@@ -52,6 +51,7 @@ $ rfd threads --sort-by views --limit 40
 ```
 
 ### Simple Search
+
 ```console
 $ rfd search 'pizza'
 ```
@@ -61,7 +61,7 @@ $ rfd search 'pizza'
 Regular expressions can be used for search.
 
 ```console
-$ rfd search '(coffee|starbucks)' --num-pages 100
+$ rfd search '(coffee|starbucks)' --pages 10 --sort-by views
 ```
 
 ## Shell Completion
