@@ -2,10 +2,10 @@ from subprocess import Popen, PIPE
 import pytest
 
 
-def run_cli(args, timeout=15):
+def run_cli(args):
     cmd = ["python", "-m", "rfd"] + args.split()
     p = Popen(cmd, stdout=PIPE)
-    stdout, _ = p.communicate(timeout=timeout)
+    stdout, _ = p.communicate()
     assert p.returncode == 0
     return stdout
 
