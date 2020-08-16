@@ -34,6 +34,12 @@ Commands:
 
 ## Examples
 
+All commands open up in a pager.
+
+Search can be done using `/`.
+
+Close pager with `q`.
+
 ### View Hot Deals
 
 ```console
@@ -47,7 +53,7 @@ $ rfd threads --sort-by score
 ```
 
 ```console
-$ rfd threads --sort-by views --limit 40
+$ rfd threads --sort-by views --pages 10
 ```
 
 ### Simple Search
@@ -56,12 +62,18 @@ $ rfd threads --sort-by views --limit 40
 $ rfd search 'pizza'
 ```
 
-### RegEx Search
+### Advanced Search
 
 Regular expressions can be used for search.
 
 ```console
 $ rfd search '(coffee|starbucks)' --pages 10 --sort-by views
+```
+
+### View Posts
+
+```console
+$ rfd posts https://forums.redflagdeals.com/kobo-vs-kindle-2396227/
 ```
 
 ## Shell Completion
