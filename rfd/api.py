@@ -33,28 +33,30 @@ def create_user_map(users):
     return m
 
 
-def get_threads(forum_id, limit, page=1):
+def get_threads(forum_id, pages):
     """Get threads from rfd api
 
     Arguments:
         forum_id {int} -- forum id
-        limit {[type]} -- limit number of threads returned
+        pages {int} -- the number of pages of threads to collect
 
     Returns:
         dict -- api response
     """
+    threads = []
     try:
-        response = requests.get(
-            "{}/api/topics?forum_id={}&per_page={}&page={}".format(
-                API_BASE_URL, forum_id, get_safe_per_page(limit), page
+        for page in range(1, pages + 1):
+            response = requests.get(
+                "{}/api/topics?forum_id={}&per_page=40&page={}".format(
+                    API_BASE_URL, forum_id, page
+                )
             )
-        )
-        if response.status_code == 200:
-            return response.json()
-        logging.error("Unable to retrieve threads. %s", response.text)
+            if response.status_code != 200:
+                raise Exception("When collecting threads, received a status code: %s" % response.status_code)
+            threads += response.json().get("topics")
     except JSONDecodeError as err:
-        logging.error("Unable to retrieve threads. %s", err)
-    return None
+        logging.error("Unable to decode threads. %s", err)
+    return threads
 
 
 def get_posts(post):
