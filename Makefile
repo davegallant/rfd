@@ -32,29 +32,15 @@ lint:
 .PHONY: lint
 
 ## test: Run all unit tests
-test: tmp/.tests-passed.sentinel
+test:
+> pytest -vvv tests
 .PHONY: test
-
-## examples: Run basic commands
-examples: tmp/.tests-passed.sentinel
-> rfd --version
-> rfd threads >/dev/null
-> rfd threads --sort-by score >/dev/null
-> rfd search 'pizza' >/dev/null
-> rfd search '(coffee|starbucks)' >/dev/null
-.PHONY: examples
-
-# Tests - re-ran if any file under src has been changed since tmp/.tests-passed.sentinel was last touched
-tmp/.tests-passed.sentinel: $(shell find ${SRC} -type f)
-> mkdir -p $(@D)
-> pytest -v
-> touch $@
 
 ## pr: Run pre-commit, lint and test
 pr: precommit lint test
 .PHONY: pr
 
-ci: lint test examples
+ci: lint test
 .PHONY: ci
 
 ## help: Print this help message

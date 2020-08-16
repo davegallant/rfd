@@ -7,11 +7,11 @@ import sys
 import click
 from colorama import init, Fore, Style
 from .api import get_threads, get_posts
-from .threads import parse_threads, search_threads, sort_threads
+from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
+from .scores import get_vote_color
 from .__version__ import version as current_version
 
 init()
-print()
 
 logging.getLogger()
 logging.getLogger().setLevel(logging.INFO)
@@ -27,44 +27,11 @@ def get_terminal_width():
     return int(columns)
 
 
-def get_vote_color(score):
-    if score > 0:
-        return Fore.GREEN + " [+" + str(score) + "] "
-    if score < 0:
-        return Fore.RED + " [" + str(score) + "] "
-    return Fore.BLUE + " [" + str(score) + "] "
-
-
 def print_version(ctx, value):
     if not value or ctx.resilient_parsing:
         return
     click.echo(get_version(), nl=False)
     ctx.exit()
-
-
-def generate_thread_output(_threads):
-    for count, thread in enumerate(_threads, 1):
-        output = ""
-        dealer = thread.dealer_name
-        if dealer and dealer is not None:
-            dealer = "[" + dealer + "] "
-        else:
-            dealer = ""
-        output += (
-            " "
-            + str(count)
-            + "."
-            + get_vote_color(thread.score)
-            + Fore.RESET
-            + "%s%s" % (dealer, thread.title)
-            + Fore.LIGHTYELLOW_EX
-            + " (%d views)" % thread.views
-            + Fore.RESET
-        )
-        output += Fore.BLUE + " {}".format(thread.url)
-        output += Style.RESET_ALL
-        output += "\n\n"
-        yield output
 
 
 @click.group(invoke_without_command=True)
