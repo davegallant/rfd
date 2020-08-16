@@ -1,6 +1,7 @@
 import re
+from colorama import Fore, Style
 from . import API_BASE_URL
-from .scores import calculate_score
+from .scores import calculate_score, get_vote_color
 
 # pylint: disable=old-style-class
 class Thread:
@@ -74,3 +75,28 @@ def search_threads(threads, regex):
             deal.dealer_name and regexp.search(deal.dealer_name.lower())
         ):
             yield deal
+
+
+def generate_thread_output(threads):
+    for count, thread in enumerate(threads, 1):
+        output = ""
+        dealer = thread.dealer_name
+        if dealer and dealer is not None:
+            dealer = "[" + dealer + "] "
+        else:
+            dealer = ""
+        output += (
+            " "
+            + str(count)
+            + "."
+            + get_vote_color(thread.score)
+            + Fore.RESET
+            + "%s%s" % (dealer, thread.title)
+            + Fore.LIGHTYELLOW_EX
+            + " (%d views)" % thread.views
+            + Fore.RESET
+        )
+        output += Fore.BLUE + " {}".format(thread.url)
+        output += Style.RESET_ALL
+        output += "\n\n"
+        yield output

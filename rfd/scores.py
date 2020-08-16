@@ -1,3 +1,6 @@
+from colorama import Fore
+
+
 def calculate_score(post):
     """Calculate either topic or post score. If votes cannot be retrieved, the score is 0.
 
@@ -16,3 +19,11 @@ def calculate_score(post):
         pass
 
     return score
+
+
+def get_vote_color(score):
+    if score > 0:
+        return Fore.GREEN + " [+" + str(score) + "] "
+    if score < 0:
+        return Fore.RED + " [" + str(score) + "] "
+    return Fore.BLUE + " [" + str(score) + "] "
