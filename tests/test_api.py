@@ -19,11 +19,10 @@ def test_extract_post_id():
 
 def test_parse_threads(threads_api_response):
 
-    limit = 10
-    threads = parse_threads(threads_api_response, limit)
-    assert len(threads) == limit
+    threads = parse_threads(threads_api_response.get("topics"))
+    assert len(threads) == 10
 
 
 def test_parse_threads_empty():
 
-    assert parse_threads(None, 10) == []
+    assert parse_threads(None) == []

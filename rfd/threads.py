@@ -27,12 +27,11 @@ def get_dealer(topic):
     return dealer
 
 
-def parse_threads(threads, limit):
+def parse_threads(threads):
     """Parse topics list api response into digestible list.
 
     Arguments:
         threads {dict} -- topics response from rfd api
-        limit {int} -- limit number of threads returned
 
     Returns:
         list(dict) -- digestible list of threads
@@ -40,9 +39,7 @@ def parse_threads(threads, limit):
     parsed_threads = []
     if threads is None:
         return []
-    for count, topic in enumerate(threads.get("topics"), start=1):
-        if count > limit:
-            break
+    for topic in threads:
         parsed_threads.append(
             Thread(
                 title=topic.get("title"),

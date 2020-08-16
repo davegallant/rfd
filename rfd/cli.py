@@ -2,13 +2,12 @@ from __future__ import unicode_literals
 
 
 import logging
-import os
 import sys
 import click
-from colorama import init, Fore, Style
+from colorama import init
 from .api import get_threads, get_posts
 from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
-from .scores import get_vote_color
+from .posts import generate_posts_output
 from .__version__ import version as current_version
 
 init()
@@ -20,12 +19,6 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 def get_version():
     return "rfd v" + current_version
-
-
-def get_terminal_width():
-    _, columns = os.popen("stty size", "r").read().split()
-    return int(columns)
-
 
 def print_version(ctx, value):
     if not value or ctx.resilient_parsing:
@@ -64,18 +57,7 @@ def posts(post_id):
     """
 
     try:
-        click.echo("-" * get_terminal_width())
-        for post in get_posts(post=post_id):
-            click.echo(
-                " -"
-                + get_vote_color(post.score)
-                + Fore.RESET
-                + post.body
-                + Fore.YELLOW
-                + " ({})".format(post.user)
-            )
-            click.echo(Style.RESET_ALL)
-            click.echo("-" * get_terminal_width())
+        click.echo_via_pager(generate_posts_output(get_posts(post=post_id)))
     except ValueError:
         click.echo("Invalid post id.")
         sys.exit(1)
@@ -86,9 +68,9 @@ def posts(post_id):
 
 @cli.command(short_help="Displays threads in the forum. Defaults to hot deals.")
 @click.option("--forum-id", default=9, help="The forum id number")
-@click.option("--limit", default=10, help="Number of threads.")
+@click.option("--pages", default=1, help="Number of pages to show. Defaults to 1.")
 @click.option("--sort-by", default=None, help="Sort threads by")
-def threads(limit, forum_id, sort_by):
+def threads(forum_id, pages, sort_by):
     """Display threads in the specified forum id. Defaults to 9 (hot deals).
 
     Popular forum ids:
@@ -105,9 +87,7 @@ def threads(limit, forum_id, sort_by):
     74 \t shopping discussion
     88 \t cell phones
     """
-    _threads = sort_threads(
-        parse_threads(get_threads(forum_id, limit), limit), sort_by=sort_by
-    )
+    _threads = sort_threads(parse_threads(get_threads(forum_id, pages)), sort_by=sort_by)
     click.echo_via_pager(generate_thread_output(_threads))
 
 
@@ -138,10 +118,9 @@ def search(pages, forum_id, sort_by, regex):
 
     matched_threads = []
 
-    for page in range(1, pages):
-        _threads = parse_threads(get_threads(forum_id, 100, page=page), limit=100)
-        for thread in search_threads(threads=_threads, regex=regex):
-            matched_threads.append(thread)
+    _threads = parse_threads(get_threads(forum_id, pages=pages))
+    for thread in search_threads(threads=_threads, regex=regex):
+        matched_threads.append(thread)
     click.echo_via_pager(
         generate_thread_output(sort_threads(matched_threads, sort_by=sort_by))
     )
