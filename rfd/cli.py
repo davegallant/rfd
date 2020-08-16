@@ -2,13 +2,12 @@ from __future__ import unicode_literals
 
 
 import logging
-import os
 import sys
 import click
-from colorama import init, Fore, Style
+from colorama import init
 from .api import get_threads, get_posts
 from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
-from .scores import get_vote_color
+from .posts import generate_posts_output
 from .__version__ import version as current_version
 
 init()
@@ -20,12 +19,6 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 def get_version():
     return "rfd v" + current_version
-
-
-def get_terminal_width():
-    _, columns = os.popen("stty size", "r").read().split()
-    return int(columns)
-
 
 def print_version(ctx, value):
     if not value or ctx.resilient_parsing:
@@ -64,18 +57,7 @@ def posts(post_id):
     """
 
     try:
-        click.echo("-" * get_terminal_width())
-        for post in get_posts(post=post_id):
-            click.echo(
-                " -"
-                + get_vote_color(post.score)
-                + Fore.RESET
-                + post.body
-                + Fore.YELLOW
-                + " ({})".format(post.user)
-            )
-            click.echo(Style.RESET_ALL)
-            click.echo("-" * get_terminal_width())
+        click.echo_via_pager(generate_posts_output(get_posts(post=post_id)))
     except ValueError:
         click.echo("Invalid post id.")
         sys.exit(1)
