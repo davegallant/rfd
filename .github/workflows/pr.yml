@@ -1,0 +1,25 @@
+name: CI
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python setup.py install
+          pip install -r requirements_dev.txt
+      - name: Run pre-commit
+        run: |
+          git diff --name-only $TRAVIS_COMMIT_RANGE | xargs pre-commit run --files
+      - name: Test
+        run: make ci
