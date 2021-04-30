@@ -2,7 +2,7 @@
 
 Hot deals on the command line.
 
-[![Build Status](https://travis-ci.org/davegallant/rfd.svg?branch=master)](https://travis-ci.org/davegallant/rfd)
+[![Build Status](https://travis-ci.com/davegallant/rfd.svg?branch=master)](https://travis-ci.com/davegallant/rfd)
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 [![Downloads](https://pepy.tech/badge/rfd)](https://pepy.tech/project/rfd)
