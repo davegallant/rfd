@@ -1,6 +1,6 @@
 # RFD
 
-Hot deals on the command line.
+This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.redflagdeals.com) on the command line.
 
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
