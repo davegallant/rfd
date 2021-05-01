@@ -3,10 +3,6 @@ updates:
 - package-ecosystem: pip
   directory: "/"
   schedule:
-    interval: daily
-    time: "10:00"
+    interval: weekly
+    time: "8:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: pre-commit
-    versions:
-    - "> 1.21.0"
