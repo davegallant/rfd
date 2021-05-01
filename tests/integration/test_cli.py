@@ -6,7 +6,7 @@ def run_cli(args):
     cmd = ["python", "-m", "rfd"] + args.split()
     p = Popen(cmd, stdout=PIPE)
     stdout, _ = p.communicate()
-    assert p.returncode == 0
+    assert p.returncode == 0, stdout
     return stdout
 
 
