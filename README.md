@@ -2,7 +2,6 @@
 
 Hot deals on the command line.
 
-[![Build Status](https://travis-ci.com/davegallant/rfd.svg?branch=master)](https://travis-ci.com/davegallant/rfd)
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 [![Downloads](https://pepy.tech/badge/rfd)](https://pepy.tech/project/rfd)
@@ -17,7 +16,7 @@ pip install rfd
 
 ## Usage
 
-```shell
+```sh
 Usage: rfd [OPTIONS] COMMAND [ARGS]...
 
   CLI for https://forums.redflagdeals.com
@@ -34,32 +33,30 @@ Commands:
 
 ## Examples
 
-All commands open up in a pager.
-
-Search can be done using `/`.
-
-Close pager with `q`.
+All commands open up in a [terminal pager](https://en.wikipedia.org/wiki/Terminal_pager).
 
 ### View Hot Deals
 
-```console
-$ rfd threads
+```sh
+rfd threads
 ```
 
 ### View and Sort Hot Deals
 
-```console
-$ rfd threads --sort-by score
+```sh
+rfd threads --sort-by score
 ```
 
-```console
-$ rfd threads --sort-by views --pages 10
+To view and sort multiple pages, use `--pages`:
+
+```sh
+rfd threads --sort-by views --pages 10
 ```
 
 ### Simple Search
 
-```console
-$ rfd search 'pizza'
+```sh
+rfd search 'pizza'
 ```
 
 ### Advanced Search
@@ -67,27 +64,31 @@ $ rfd search 'pizza'
 Regular expressions can be used for search.
 
 ```console
-$ rfd search '(coffee|starbucks)' --pages 10 --sort-by views
+rfd search '(coffee|starbucks)' --pages 10 --sort-by views
 ```
 
 ### View Posts
 
-```console
-$ rfd posts https://forums.redflagdeals.com/kobo-vs-kindle-2396227/
+It's possible to view an entire post and all comments by running:
+
+```sh
+rfd posts https://forums.redflagdeals.com/kobo-vs-kindle-2396227/
 ```
+
+This allows for easy grepping and searching for desired expressions.
 
 ## Shell Completion
 
-Completion can be enabled if using `bash` or `zsh`.
+Shell completion can be enabled if using `bash` or `zsh`.
 
 ### bash
 
-```console
-$ echo 'eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.profile
+```sh
+echo 'eval "$(_RFD_COMPLETE=source rfd)"' >> ~/.profile
 ```
 
 ### zsh
 
-```console
-$ echo 'eval "$(_RFD_COMPLETE=source_zsh rfd)"' >> ~/.zshrc
+```sh
+echo 'eval "$(_RFD_COMPLETE=source_zsh rfd)"' >> ~/.zshrc
 ```
