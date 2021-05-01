@@ -63,7 +63,7 @@ rfd search 'pizza'
 
 Regular expressions can be used for search.
 
-```console
+```sh
 rfd search '(coffee|starbucks)' --pages 10 --sort-by views
 ```
 
