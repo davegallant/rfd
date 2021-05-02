@@ -27,7 +27,7 @@ This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.
 
 ## Motivation
 
-It is often faster to use a CLI than to load up a web page and navigate web elements. This tool can search for deals and sort them based on score and views. It is also able to load entire threads for additional analysis.
+It is often faster to use a CLI than to load up a web page and navigate web elements. This tool can search for deals and sort them based on score and views. It is also able to load entire threads (without pagination) for additional analysis.
 
 ## Install
 
