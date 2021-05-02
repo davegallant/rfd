@@ -1,5 +1,5 @@
 name: Tests
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install .
-          pip install -r requirements_dev.txt
+          pip install poetry==1.1.6
+          poetry install
       - name: Run pre-commit
         run: |
-          git diff --name-only $TRAVIS_COMMIT_RANGE | xargs pre-commit run --files
+          git diff --name-only $TRAVIS_COMMIT_RANGE | xargs poetry run pre-commit run --files
       - name: Test
-        run: make ci
+        run: poetry run make ci

@@ -1,5 +1,0 @@
-pre-commit==1.21.0
-pylint
-pytest>=4.6.6
-rope==0.19.0
-tox-travis==0.12
