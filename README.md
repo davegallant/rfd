@@ -7,7 +7,7 @@
 <!-- BEGIN mktoc -->
 - [Description](#description)
 - [Motivation](#motivation)
-- [Install](#install)
+- [Installation](#installation)
 - [Usage](#usage)
   - [View Hot Deals](#view-hot-deals)
   - [View and Sort Hot Deals](#view-and-sort-hot-deals)
@@ -29,7 +29,7 @@ This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.
 
 It is often faster to use a CLI than to load up a web page and navigate web elements. This tool can search for deals and sort them based on score and views. It is also able to load entire threads (without pagination) for additional analysis.
 
-## Install
+## Installation
 
 > :information_source: python2 may still work but it is [no longer supported](https://www.python.org/doc/sunset-python-2/).
 
