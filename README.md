@@ -21,7 +21,7 @@
 
 ## Description
 
-This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.redflagdeals.com) on the command line.
+This is a CLI utility that allows you to view [RedFlagDeals.com](https://forums.redflagdeals.com) on the command line.
 
 ![screenshot](https://user-images.githubusercontent.com/4519234/85969861-e10a4100-b996-11ea-9a31-6203322c60ee.png)
 
