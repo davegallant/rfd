@@ -37,7 +37,7 @@ It is often faster to use a CLI than to load up a web page and navigate web elem
 python3 -m pip install --user rfd
 ```
 
-If you cannot access `rfd` in your path, try `python3 -m rfd`.
+After installation, if you cannot access `rfd` in your path, try `python3 -m rfd`.
 
 
 ## Usage
