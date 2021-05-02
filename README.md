@@ -1,12 +1,33 @@
 # RFD
 
-This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.redflagdeals.com) on the command line.
-
 [![PyPI version](https://badge.fury.io/py/rfd.svg)](https://badge.fury.io/py/rfd)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 [![Downloads](https://pepy.tech/badge/rfd)](https://pepy.tech/project/rfd)
 
+<!-- BEGIN mktoc -->
+- [Description](#description)
+- [Motivation](#motivation)
+- [Install](#install)
+- [Usage](#usage)
+  - [View Hot Deals](#view-hot-deals)
+  - [View and Sort Hot Deals](#view-and-sort-hot-deals)
+  - [Search](#search)
+    - [Advanced](#advanced)
+  - [View Posts](#view-posts)
+- [Shell Completion](#shell-completion)
+  - [bash](#bash)
+  - [zsh](#zsh)
+<!-- END mktoc -->
+
+## Description
+
+This is a CLI utility that allows you to view [Redflagdeals.com](https://forums.redflagdeals.com) on the command line.
+
 ![screenshot](https://user-images.githubusercontent.com/4519234/85969861-e10a4100-b996-11ea-9a31-6203322c60ee.png)
+
+## Motivation
+
+It is often faster to use a CLI than to load up a web page and navigate web elements. This tool can search for deals and sort them based on score and views. It is also able to load entire threads for additional analysis.
 
 ## Install
 
