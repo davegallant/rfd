@@ -16,6 +16,8 @@ pip install rfd
 
 ## Usage
 
+All commands open up in a [terminal pager](https://en.wikipedia.org/wiki/Terminal_pager).
+
 ```sh
 Usage: rfd [OPTIONS] COMMAND [ARGS]...
 
@@ -31,11 +33,9 @@ Commands:
   threads  Displays threads in the forum. Defaults to hot deals.
 ```
 
-## Examples
-
-All commands open up in a [terminal pager](https://en.wikipedia.org/wiki/Terminal_pager).
-
 ### View Hot Deals
+
+To view the threads on most popular sub-forum:
 
 ```sh
 rfd threads
@@ -53,13 +53,13 @@ To view and sort multiple pages, use `--pages`:
 rfd threads --sort-by views --pages 10
 ```
 
-### Simple Search
+### Search
 
 ```sh
 rfd search 'pizza'
 ```
 
-### Advanced Search
+#### Advanced
 
 Regular expressions can be used for search.
 
