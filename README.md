@@ -31,9 +31,14 @@ It is often faster to use a CLI than to load up a web page and navigate web elem
 
 ## Install
 
+> :information_source: python2 may still work but it is [no longer supported](https://www.python.org/doc/sunset-python-2/).
+
 ```bash
-pip install rfd
+python3 -m pip install --user rfd
 ```
+
+If you cannot access `rfd` in your path, try `python3 -m rfd`.
+
 
 ## Usage
 
