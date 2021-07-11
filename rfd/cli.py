@@ -8,7 +8,8 @@ from colorama import init
 from .api import get_threads, get_posts
 from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
 from .posts import generate_posts_output
-from .__version__ import version as current_version
+from importlib.metadata import version
+
 
 init()
 
@@ -18,12 +19,12 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 
 def get_version():
-    return "rfd v" + current_version
+    return "rfd v" + version("rfd")
 
-def print_version(ctx, value):
+def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
         return
-    click.echo(get_version(), nl=False)
+    click.echo(get_version(), nl=True)
     ctx.exit()
 
 
