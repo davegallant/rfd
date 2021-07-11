@@ -4,11 +4,14 @@ from __future__ import unicode_literals
 import logging
 import sys
 import click
+try:
+    from importlib import metadata
+except ImportError: # for Python<3.8
+    import importlib_metadata as metadata
 from colorama import init
 from .api import get_threads, get_posts
 from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
 from .posts import generate_posts_output
-from importlib.metadata import version
 
 
 init()
@@ -19,9 +22,9 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 
 def get_version():
-    return "rfd v" + version("rfd")
+    return "rfd v" + metadata.version("rfd")
 
-def print_version(ctx, param, value):
+def print_version(ctx, _, value):
     if not value or ctx.resilient_parsing:
         return
     click.echo(get_version(), nl=True)
