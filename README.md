@@ -45,7 +45,7 @@ If you have [brew](https://brew.sh):
 
 ```sh
 brew install davegallant/public/rfd
-``
+```
 
 
 ## Usage
