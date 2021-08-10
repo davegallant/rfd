@@ -37,7 +37,7 @@ It is often faster to use a CLI than to load up a web page and navigate web elem
 pip3 install --user rfd
 ```
 
-This can also be installed with [pipx](https://github.com/pypa/pipx)
+This can also be installed with [pipx](https://github.com/pypa/pipx).
 
 ### brew
 
