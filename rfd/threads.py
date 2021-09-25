@@ -3,7 +3,7 @@ from colorama import Fore, Style
 from . import API_BASE_URL
 from .scores import calculate_score, get_vote_color
 
-# pylint: disable=old-style-class
+
 class Thread:
     def __init__(self, title, dealer_name, score, url, views):
         self.dealer_name = dealer_name
@@ -13,11 +13,11 @@ class Thread:
         self.views = views
 
     def __repr__(self):
-        return "Thread(%s)" % self.title
+        return f"Thread({self.title})"
 
 
 def build_web_path(slug):
-    return "{}{}".format(API_BASE_URL, slug)
+    return f"{API_BASE_URL}{slug}"
 
 
 def get_dealer(topic):
@@ -88,12 +88,12 @@ def generate_thread_output(threads):
             + "."
             + get_vote_color(thread.score)
             + Fore.RESET
-            + "%s%s" % (dealer, thread.title)
+            + f"{dealer}{thread.title}"
             + Fore.LIGHTYELLOW_EX
-            + " (%d views)" % thread.views
+            + f" ({thread.views} views)"
             + Fore.RESET
         )
-        output += Fore.BLUE + " {}".format(thread.url)
+        output += Fore.BLUE + f" {thread.url}"
         output += Style.RESET_ALL
         output += "\n\n"
         yield output

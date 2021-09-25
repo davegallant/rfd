@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rfd"
-version = "0.7.2"
+version = "0.8.0"
 description = "view RedFlagDeals.com from the command line"
 authors = ["Dave Gallant <davegallant@gmail.com>"]
 license = "GPL-3.0-or-later"

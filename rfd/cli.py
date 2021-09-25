@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 import logging
 import sys
 import click
+
 try:
     from importlib import metadata
-except ImportError: # for Python<3.8
+except ImportError:  # for Python<3.8
     import importlib_metadata as metadata
 from colorama import init
 from .api import get_threads, get_posts
@@ -23,6 +24,7 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 def get_version():
     return "rfd v" + metadata.version("rfd")
+
 
 def print_version(ctx, _, value):
     if not value or ctx.resilient_parsing:
@@ -91,7 +93,9 @@ def threads(forum_id, pages, sort_by):
     74 \t shopping discussion
     88 \t cell phones
     """
-    _threads = sort_threads(parse_threads(get_threads(forum_id, pages)), sort_by=sort_by)
+    _threads = sort_threads(
+        parse_threads(get_threads(forum_id, pages)), sort_by=sort_by
+    )
     click.echo_via_pager(generate_thread_output(_threads))
 
 
