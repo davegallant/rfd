@@ -27,7 +27,7 @@ def get_safe_per_page(limit):
 
 def create_user_map(users):
     """Create a map of user ids to usernames."""
-    m = dict()
+    m = {}
     for user in users:
         m[user.get("user_id")] = user.get("username")
     return m
@@ -47,12 +47,12 @@ def get_threads(forum_id, pages):
     try:
         for page in range(1, pages + 1):
             response = requests.get(
-                "{}/api/topics?forum_id={}&per_page=40&page={}".format(
-                    API_BASE_URL, forum_id, page
-                )
+                f"{API_BASE_URL}/api/topics?forum_id={forum_id}&per_page=40&page={page}"
             )
             if response.status_code != 200:
-                raise Exception("When collecting threads, received a status code: %s" % response.status_code)
+                raise Exception(
+                    f"When collecting threads, received a status code: {response.status_code}"
+                )
             threads += response.json().get("topics")
     except JSONDecodeError as err:
         logging.error("Unable to decode threads. %s", err)
@@ -76,16 +76,14 @@ def get_posts(post):
         raise ValueError()
 
     response = requests.get(
-        "{}/api/topics/{}/posts?per_page=40&page=1".format(API_BASE_URL, post_id)
+        f"{API_BASE_URL}/api/topics/{post_id}/posts?per_page=40&page=1"
     )
 
     total_pages = response.json().get("pager").get("total_pages")
 
     for page in range(0, total_pages + 1):
         response = requests.get(
-            "{}/api/topics/{}/posts?per_page={}&page={}".format(
-                API_BASE_URL, post_id, 40, page
-            )
+            f"{API_BASE_URL}/api/topics/{post_id}/posts?per_page=40&page={page}"
         )
         users = create_user_map(response.json().get("users"))
 

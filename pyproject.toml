@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rfd"
-version = "0.7.2"
+version = "0.8.0"
 description = "view RedFlagDeals.com from the command line"
 authors = ["Dave Gallant <davegallant@gmail.com>"]
 license = "GPL-3.0-or-later"
@@ -16,7 +16,7 @@ soupsieve = "<3.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "1.21.0"
-pylint = "^2.9.6"
+pylint = "^2.11.1"
 pytest = ">=4.6.6"
 rope = "0.20.1"
 
