@@ -366,14 +366,14 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 
 [[package]]
 name = "rope"
-version = "0.20.1"
+version = "0.21.1"
 description = "a python refactoring library..."
 category = "dev"
 optional = false
 python-versions = "*"
 
 [package.extras]
-dev = ["pytest", "pytest-timeout"]
+dev = ["build", "pytest", "pytest-timeout"]
 
 [[package]]
 name = "six"
@@ -471,7 +471,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "e4c9d787cf90dc2d5939abb5e558949f1d31181b740bec1797437e4b0cb3d836"
+content-hash = "656e980c15280a5eee72d39ae784c767692c13af84f83870549573c20966adf0"
 
 [metadata.files]
 appdirs = [
@@ -650,7 +650,8 @@ requests = [
     {file = "requests-2.26.0.tar.gz", hash = "sha256:b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"},
 ]
 rope = [
-    {file = "rope-0.20.1.tar.gz", hash = "sha256:505a2f6b4ac7b18e0429be179f4d8712243a194da5c866b0731f9d91ce7590bb"},
+    {file = "rope-0.21.1-py3-none-any.whl", hash = "sha256:7fa433eb946bf806a419a3da354cd9b56d565cadf7159952c8e71c72d4b1a8ec"},
+    {file = "rope-0.21.1.tar.gz", hash = "sha256:4fe61ea25ca64f1819be57fbb44ee07ca98b3dce08a0ceaaf3c6d6166b603f7f"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
