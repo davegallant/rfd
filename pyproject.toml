@@ -18,7 +18,7 @@ soupsieve = "<3.0"
 pre-commit = "1.21.0"
 pylint = "^2.11.1"
 pytest = ">=4.6.6"
-rope = "0.20.1"
+rope = "0.22.0"
 
 [tool.poetry.scripts]
 rfd = "rfd.__main__:cli"
