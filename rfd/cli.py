@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import logging
 import sys
+import json
 import click
 
 try:
@@ -11,8 +12,14 @@ except ImportError:  # for Python<3.8
     import importlib_metadata as metadata
 from colorama import init
 from .api import get_threads, get_posts
-from .threads import parse_threads, search_threads, sort_threads, generate_thread_output
-from .posts import generate_posts_output
+from .threads import (
+    parse_threads,
+    search_threads,
+    sort_threads,
+    generate_thread_output,
+    ThreadEncoder,
+)
+from .posts import generate_posts_output, PostEncoder
 
 
 init()
@@ -51,7 +58,10 @@ def cli(ctx):
 
 @cli.command(short_help="Display all posts in a thread.")
 @click.argument("post_id")
-def posts(post_id):
+@click.option(
+    "--output", default=None, help="Defaults to custom formatting. Other options: json"
+)
+def posts(post_id, output):
     """Iterate all pages and display all posts in a thread.
 
     post_id can be a full url or post id only
@@ -63,12 +73,23 @@ def posts(post_id):
     """
 
     try:
-        click.echo_via_pager(generate_posts_output(get_posts(post=post_id)))
+        if output == "json":
+            click.echo_via_pager(
+                json.dumps(
+                    get_posts(post=post_id),
+                    cls=PostEncoder,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+        else:
+            click.echo_via_pager(generate_posts_output(get_posts(post=post_id)))
+
     except ValueError:
         click.echo("Invalid post id.")
         sys.exit(1)
-    except AttributeError:
-        click.echo("The RFD API did not return the expected data.")
+    except AttributeError as err:
+        click.echo("The RFD API did not return the expected data. %s", err)
         sys.exit(1)
 
 
@@ -76,7 +97,10 @@ def posts(post_id):
 @click.option("--forum-id", default=9, help="The forum id number")
 @click.option("--pages", default=1, help="Number of pages to show. Defaults to 1.")
 @click.option("--sort-by", default=None, help="Sort threads by")
-def threads(forum_id, pages, sort_by):
+@click.option(
+    "--output", default=None, help="Defaults to custom formatting. Other options: json"
+)
+def threads(forum_id, pages, sort_by, output):
     """Display threads in the specified forum id. Defaults to 9 (hot deals).
 
     Popular forum ids:
@@ -96,7 +120,18 @@ def threads(forum_id, pages, sort_by):
     _threads = sort_threads(
         parse_threads(get_threads(forum_id, pages)), sort_by=sort_by
     )
-    click.echo_via_pager(generate_thread_output(_threads))
+    if output == "json":
+
+        click.echo_via_pager(
+            json.dumps(
+                sort_threads(_threads, sort_by=sort_by),
+                cls=ThreadEncoder,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    else:
+        click.echo_via_pager(generate_thread_output(_threads))
 
 
 @cli.command(short_help="Search deals based on a regular expression.")
@@ -105,8 +140,11 @@ def threads(forum_id, pages, sort_by):
     "--forum-id", default=9, help="The forum id number. Defaults to 9 (hot deals)."
 )
 @click.option("--sort-by", default=None, help="Sort threads by")
+@click.option(
+    "--output", default=None, help="Defaults to custom formatting. Other options: json"
+)
 @click.argument("regex")
-def search(pages, forum_id, sort_by, regex):
+def search(pages, forum_id, sort_by, output, regex):
     """Search deals based on regex.
 
     Popular forum ids:
@@ -129,6 +167,17 @@ def search(pages, forum_id, sort_by, regex):
     _threads = parse_threads(get_threads(forum_id, pages=pages))
     for thread in search_threads(threads=_threads, regex=regex):
         matched_threads.append(thread)
-    click.echo_via_pager(
-        generate_thread_output(sort_threads(matched_threads, sort_by=sort_by))
-    )
+
+    if output == "json":
+        click.echo_via_pager(
+            json.dumps(
+                sort_threads(matched_threads, sort_by=sort_by),
+                indent=2,
+                sort_keys=True,
+                cls=ThreadEncoder,
+            )
+        )
+    else:
+        click.echo_via_pager(
+            generate_thread_output(sort_threads(matched_threads, sort_by=sort_by))
+        )
