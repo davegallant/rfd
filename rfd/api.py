@@ -65,7 +65,7 @@ def get_posts(post):
     Args:
         post (str): either full url or postid
 
-    Yields:
+    Returns:
         list(Post): Posts
     """
     if is_valid_url(post):
@@ -81,22 +81,28 @@ def get_posts(post):
 
     total_pages = response.json().get("pager").get("total_pages")
 
+    posts = []
+
     for page in range(0, total_pages + 1):
         response = requests.get(
             f"{API_BASE_URL}/api/topics/{post_id}/posts?per_page=40&page={page}"
         )
         users = create_user_map(response.json().get("users"))
 
-        posts = response.json().get("posts")
+        current_posts = response.json().get("posts")
 
-        for i in posts:
+        for _post in current_posts:
             # Sometimes votes is null
-            if i.get("votes") is not None:
-                calculated_score = calculate_score(i)
+            if _post.get("votes") is not None:
+                calculated_score = calculate_score(_post)
             else:
                 calculated_score = 0
-            yield Post(
-                body=strip_html(i.get("body")),
-                score=calculated_score,
-                user=users[i.get("author_id")],
+            posts.append(
+                Post(
+                    body=strip_html(_post.get("body")),
+                    score=calculated_score,
+                    user=users[_post.get("author_id")],
+                )
             )
+
+    return posts

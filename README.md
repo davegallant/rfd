@@ -12,8 +12,9 @@
   - [View Hot Deals](#view-hot-deals)
   - [View and Sort Hot Deals](#view-and-sort-hot-deals)
   - [Search](#search)
-    - [Advanced](#advanced)
+    - [Regex](#regex)
   - [View Posts](#view-posts)
+  - [JSON Output](#json-output)
 - [Shell Completion](#shell-completion)
   - [bash](#bash)
   - [zsh](#zsh)
@@ -46,7 +47,6 @@ If you have [brew](https://brew.sh):
 ```sh
 brew install davegallant/public/rfd
 ```
-
 
 ## Usage
 
@@ -93,7 +93,7 @@ rfd threads --sort-by views --pages 10
 rfd search 'pizza'
 ```
 
-#### Advanced
+#### Regex
 
 Regular expressions can be used for search.
 
@@ -110,6 +110,16 @@ rfd posts https://forums.redflagdeals.com/kobo-vs-kindle-2396227/
 ```
 
 This allows for easy grepping and searching for desired expressions.
+
+### JSON Output
+
+All commands support JSON output.
+
+For example:
+
+```sh
+rfd threads --output json
+```
 
 ## Shell Completion
 

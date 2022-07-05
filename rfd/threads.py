@@ -1,4 +1,5 @@
 import re
+import json
 from colorama import Fore, Style
 from . import API_BASE_URL
 from .scores import calculate_score, get_vote_color
@@ -14,6 +15,19 @@ class Thread:
 
     def __repr__(self):
         return f"Thread({self.title})"
+
+
+class ThreadEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, Thread):
+            return dict(
+                dealer_name=o.dealer_name,
+                score=o.score,
+                title=o.title,
+                url=o.url,
+                views=o.views,
+            )
+        return json.JSONEncoder.default(self, o)
 
 
 def build_web_path(slug):
